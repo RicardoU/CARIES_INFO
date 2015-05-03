@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<title>Proyecto Caries</title>
+</h:head>
+<body>
+	<h:form>
+ 
+        
+    
+    
+    <p:growl autoUpdate="true"/>
+ 	<p:panel header="Menú del Odontólogo" widgetVar="dlg" resizable="false">
+    <p:panelMenu style="width:300px">
+        <p:submenu label="Gestión de Pacientes">
+
+            <p:menuitem value="Crear Paciente" onclick="PF('dlg').show();"/>
+            <p:menuitem value="Ver lista de Pacientes"   onclick="PF('dlg2').show();"/>
+
+        </p:submenu>
+        <p:submenu label="Gestión de Odontogramas">
+            <p:menuitem value="Realizar Odontograma" onclick="PF('dlg3').show();"/>
+            <p:menuitem value="Consultar Odontograma" onclick="PF('dlg4').show();" />
+        </p:submenu>
+        <p:separator />
+        <p:submenu label="Reportes" >
+        <p:menuitem value="Generar Reporte" actionListener="#{menuUsMB.reportes}"/>
+        </p:submenu>
+    </p:panelMenu>
+    
+
+	<p:commandButton value="Cerrar Sesión" actionListener="#{menuUsMB.cerrarSesion}"
+                                 oncomplete="handleCerrarSesionRequest(xhr, status, args)" />
+	</p:panel>
+	
+	</h:form>
+	<h:form>
+	<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+ 
+    <p:dialog header="Crear Paciente" widgetVar="dlg" resizable="false" position="380,48" width="500" height="480">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel value="Nombre:" />
+            <p:inputText id="nompa" value="#{pacientesMB.nompa}"/>
+ 			<h:outputLabel value="Apellido:" />
+            <p:inputText id="apepa" value="#{pacientesMB.apepa}"/>
+            <h:outputLabel value="Identificación:" />
+            <p:inputText id="idepa" value="#{pacientesMB.idepa}"/>
+            <h:outputLabel value="Edad:" />
+            <p:inputText id="edadus"  value="#{pacientesMB.edadpa}"/>
+            <h:outputLabel value="Género:" />
+            <p:inputText id="generous" value="#{pacientesMB.generopa}" />
+            <p:outputLabel for="ciudadus" value="Ciudad:" />
+        <p:selectOneMenu id="ciudadus"  style="width:140px">
+            <f:selectItem itemLabel="Ciudad Disponible" itemValue="#{pacientesMB.ciudadpa}" />
+        </p:selectOneMenu>
+            <h:outputLabel value="Centro de Salud donde fue atendido:" />
+            <p:inputText id="csaludus"  value="#{pacientesMB.csaludpa}"/>
+            <p:outputLabel for="denticionus" value="Tipo de Dentición:" />
+        <p:selectOneMenu id="denticionus"  style="width:140px">
+            <f:selectItem itemLabel="Primaria" itemValue="#{pacientesMB.denticionpa}" />
+            <f:selectItem itemLabel="Mixta" itemValue="#{pacientesMB.denticionpa}" />
+            <f:selectItem itemLabel="Permanente" itemValue="#{pacientesMB.denticionpa}" />
+        </p:selectOneMenu>
+        <p:outputLabel for="proyectospa" value="Proyecto:" />
+        <p:selectOneMenu id="proyectospa"  style="width:140px">
+            <f:selectItem itemLabel="Proyecto 01" itemValue="#{pacientesMB.proyectospa}" />
+            <f:selectItem itemLabel="Proyecto 02" itemValue="#{pacientesMB.proyectospa}" />
+            <f:selectItem itemLabel="Proyecto 03" itemValue="#{pacientesMB.proyectospa}" />
+        </p:selectOneMenu>
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Crear" update="growl" actionListener="#{pacientesMB.crearPa}"
+                                 oncomplete="handlePacientesMBRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+    
+    
+</h:form>
+<h:form>
+<p:growl id="growl2" sticky="true" showDetail="true" life="2600" />
+ 
+    <p:dialog header="Lista de Pacientes" widgetVar="dlg2" resizable="false" position="380,48" width="900" height="100">
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:dataTable var="car">
+        <p:column headerText="Apellido">
+        <h:outputText value="" />
+        </p:column>
+ 
+        <p:column headerText="Nombre">
+        <h:outputText value="" />
+        </p:column>
+ 
+        <p:column headerText="Género">
+        <h:outputText value="" />
+        </p:column>
+ 
+        <p:column headerText="Centro de Salud">
+        <h:outputText value="" />
+        </p:column>
+        
+        <p:column headerText="Ciudad">
+        <h:outputText value="" />
+        </p:column>
+        
+        <p:column headerText="Dentición">
+        <h:outputText value="" />
+        </p:column>
+        
+        <p:column headerText="Borrar">
+        <p:selectBooleanCheckbox value="" />
+        </p:column>
+        
+        <p:column headerText="Editar">
+        <p:selectBooleanCheckbox value="" />
+        </p:column>
+ 		</p:dataTable>
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+<h:form>
+	<p:growl id="growl3" sticky="true" showDetail="true" life="3000" />
+ 
+    <p:dialog header="Crear Odontograma" widgetVar="dlg3" resizable="false" position="380,48" width="500" height="200">
+        <h:panelGrid columns="2" cellpadding="5">
+           <h:outputLabel value="Identificación del Paciente:" />
+            <p:inputText id="idepa" value="#{pacientesMB.idepa}"/>
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Crear" update="growl3" actionListener="#{pacientesMB.crearOdon}"
+                                 oncomplete="handlePacientesMBRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+    
+    
+</h:form>
+
+<h:form>
+	<p:growl id="growl4" sticky="true" showDetail="true" life="3000" />
+ 
+    <p:dialog header="Consultar Odontograma" widgetVar="dlg4" resizable="false" position="380,48" width="500" height="200">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel value="Identificación del Paciente:" />
+            <p:inputText id="idepa" value="#{pacientesMB.idepa}"/>
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Consultar" update="growl4" actionListener="#{pacientesMB.consultar}"
+                                 oncomplete="handlePacientesMBRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+    
+    
+</h:form>
+
+
+<script type="text/javascript">
+    function handleGestionUsRequest(xhr, status, args) {
+        if(args.validationFailed) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+    function handleGestionUs2Request(xhr, status, args) {
+        if(args.validationFailed) {
+            PF('dlg2').jq.effect("shake", {times:5}, 100);
+
+        }
+        else {
+            PF('dlg2').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+    function handleGestionUs3Request(xhr, status, args) {
+        if(args.validationFailed) {
+            PF('dlg3').jq.effect("shake", {times:5}, 100);
+
+        }
+        else {
+            PF('dlg3').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+    function handleGestionUs3Request(xhr, status, args) {
+        if(args.validationFailed) {
+            PF('dlg4').jq.effect("shake", {times:5}, 100);
+
+        }
+        else {
+            PF('dlg4').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+ </body>	
+</html>

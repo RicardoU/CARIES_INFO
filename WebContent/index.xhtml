@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<title>Proyecto Caries</title>
+</h:head>
+<body>
+	<h:form>            
+ 
+    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+ 
+    <p:panel header="Inicio de Sesión" widgetVar="dlg" resizable="false">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="username" value="Usuario:" />
+            <p:inputText id="username" value="#{loginMB.username}" required="true" label="username" />
+ 
+            <h:outputLabel for="password" value="Contraseña:" />
+            <p:password id="password" value="#{loginMB.password}" required="true" label="password" />
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Ingresar" update="growl" actionListener="#{loginMB.ingresar}"
+                                 oncomplete="handleLoginMBRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:panel>
+</h:form>
+ </body>	
+</html>
