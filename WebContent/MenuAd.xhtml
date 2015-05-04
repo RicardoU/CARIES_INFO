@@ -70,7 +70,7 @@
         </p:selectOneMenu>
  
             <f:facet name="footer">
-                <p:commandButton value="Crear" update="growl" actionListener="#{usuariosMB.crearUs}"
+                <p:commandButton value="Crear" update="growl" actionListener="#{usuariosMB.addUsuario()}"
                                  oncomplete="handleUsuariosMBRequest(xhr, status, args)" />
             </f:facet>  
         </h:panelGrid>
@@ -143,10 +143,12 @@
         	</p:column>
         	</p:dataTable>
         
-        	<h:outputLabel value="Fecha Inicial:" />
-            <p:inputText />
-            <h:outputLabel value="Fecha Final:" />
-            <p:inputText  />
+        	 <p:outputLabel for="fechai" value="Fecha Inicial:" />
+        	<p:calendar id="fechai" value="#{proyectoMB.fecha1}" showOn="button" />
+        	
+        	 <p:outputLabel for="fechaf" value="Fecha Fial:" />
+        	<p:calendar id="fechaf" value="#{proyectoMB.fecha2}" showOn="button" />
+        	
             <h:outputLabel value="Tipo de Proyecto:" />
             <p:inputText  />
             <h:outputLabel for="poblacion" value="Población:" />

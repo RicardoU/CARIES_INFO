@@ -1,7 +1,9 @@
 package com.unbosque.info.entidad;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 
@@ -14,14 +16,20 @@ import java.sql.Timestamp;
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
 	private Integer id;
 
 	@Column(name="apellidos_nombres")
 	private String apellidosNombres;
 
+	@Column(name = "correo")
 	private String correo;
 
+	@Column(name = "estado", nullable = false)
 	private String estado;
 
 	@Column(name="fecha_clave")
@@ -33,12 +41,23 @@ public class Usuario implements Serializable {
 	@Column(name="id_proyecto")
 	private Integer idProyecto;
 
+	@Column(name="login")
 	private String login;
 
+	@Column(name="password")
 	private String password;
 
 	@Column(name="tipo_usuario")
 	private String tipoUsuario;
+	
+	@Column(name="identificacion")
+	private String identificacion;
+	
+	@Column(name="especialidad")
+	private String especialidad;
+	
+	@Column(name="telefono")
+	private String telefono;
 
 	public Usuario() {
 	}
@@ -121,6 +140,30 @@ public class Usuario implements Serializable {
 
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
+
+	public String getEspecialidad() {
+		return especialidad;
+	}
+
+	public void setEspecialidad(String especialidad) {
+		this.especialidad = especialidad;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 }

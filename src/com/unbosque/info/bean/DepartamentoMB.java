@@ -41,10 +41,10 @@ public class DepartamentoMB implements Serializable {
 			FacesMessage message = null;
 			boolean loggedIn = false;
 			
-			if(departamento==null){
+			if(departamento.equals("")){
 				
 				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
-						"Error, El nombre del departamento no puede estar vacio ");
+						"Error, El nombre del departamento no puede estar vacío ");
 				FacesContext.getCurrentInstance().addMessage(null, message);
 			}else{
 				
@@ -54,14 +54,15 @@ public class DepartamentoMB implements Serializable {
 				String t3 = "0123456789";
 				
 				for (int i=0;i<a.length();i++) {
-        			if ( t3.indexOf(a.charAt(i)) != -1 ) {
+        			if ( t3.indexOf(a.charAt(i)) != -1 ){
         				nNum++;
         				}
         		}
 				
-				if ( nNum>=1) {
+				if ( nNum!=0) {
 					loggedIn = false;
-    	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "El nombre del departamento no puede contener números", "Invalid credentials");
+    	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El nombre del departamento no puede contener números");
+    				FacesContext.getCurrentInstance().addMessage(null, message);
         		}else{
 
         			loggedIn = true;

@@ -2,13 +2,16 @@ package com.unbosque.info.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.context.RequestContext;
 import org.springframework.dao.DataAccessException;
+
 import com.unbosque.info.entidad.Ciudad;
 import com.unbosque.info.service.CiudadService;
 
@@ -36,7 +39,33 @@ public class CiudadMB implements Serializable {
 
 			RequestContext context = RequestContext.getCurrentInstance();
 			FacesMessage message = null;
+			boolean loggedIn = false;
 
+			if(ciudad.equals("")){
+				
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+						"Error, El nombre de la Ciudad no puede estar vacío ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+			
+				
+				String a = ciudad;
+				a.toCharArray();
+				int nNum = 0;
+				String t3 = "0123456789";
+				
+				for (int i=0;i<a.length();i++) {
+        			if ( t3.indexOf(a.charAt(i)) != -1 ){
+        				nNum++;
+        				}
+        		}
+				
+				if ( nNum!=0) {
+					loggedIn = false;
+    	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El nombre de la ciudad no puede contener números");
+    				FacesContext.getCurrentInstance().addMessage(null, message);
+        		}else{
+				
 			Ciudad ciudad = new Ciudad();
 			
 			ciudad.setNombre(getCiudad());
@@ -48,7 +77,8 @@ public class CiudadMB implements Serializable {
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
 					"Registro agregado exitosamente.");
 			FacesContext.getCurrentInstance().addMessage(null, message);	
-
+        		}
+			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}

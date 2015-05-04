@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -37,10 +38,13 @@ private static final long serialVersionUID = 464463468460743L;
 		@ManagedProperty(value = "#{ProyectoService}")
 		ProyectoService proyectoService;
    
+	private int id;
 	private String nompro;
     private String depar;
     private String ciudad;
     private String[] location;
+    private Date fecha1;
+    private Date fecha2;
 	
 
     List<Proyecto> proyectoList;
@@ -50,22 +54,47 @@ private static final long serialVersionUID = 464463468460743L;
 
 			RequestContext context = RequestContext.getCurrentInstance();
 			FacesMessage message = null;
+			
+			boolean loggedIn = false;
+
+			if(nompro.equals("")){
+				
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+						"Error, El nombre del Proyecto no puede estar vacío ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+			
+				String a = nompro;
+				a.toCharArray();
+				int nNum = 0;
+				String t3 = "0123456789";
+				
+				for (int i=0;i<a.length();i++) {
+        			if ( t3.indexOf(a.charAt(i)) != -1 ){
+        				nNum++;
+        				}
+        		}
+				
+				if ( nNum!=0) {
+					loggedIn = false;
+    	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El nombre del Proyecto no puede contener números");
+    				FacesContext.getCurrentInstance().addMessage(null, message);
+        		}else{
 
 			Proyecto proyecto = new Proyecto();
-			
-			proyecto.setNombre("proyect");
-			
+			proyecto.setNombre(getNompro());
 			proyecto.setEstado("A");
 			proyecto.setIdCiudad("city");
 			proyecto.setIdDpto("depar");
-			
-			//getProyectoService().addProyecto(proyecto);
+			getProyectoService().addProyecto(proyecto);
 			reset();
 			
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
 					"Registro agregado exitosamente.");
 			FacesContext.getCurrentInstance().addMessage(null, message);	
 
+        		}
+			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
@@ -86,9 +115,12 @@ private static final long serialVersionUID = 464463468460743L;
 	//}
 
 	public void reset() {
+		this.setId(0);
 		this.setNompro("");
 		this.setCiudad("");
 		this.setDepar("");
+		this.setFecha1(null);
+		this.setFecha2(null);
 	}
 
 	public List<Proyecto> getProyectosList() {
@@ -148,6 +180,22 @@ private static final long serialVersionUID = 464463468460743L;
 		this.ciudad = ciudad;
 	}
 
+	public Date getFecha1() {
+		return fecha1;
+	}
+
+	public void setFecha1(Date fecha1) {
+		this.fecha1 = fecha1;
+	}
+
+	public Date getFecha2() {
+		return fecha2;
+	}
+
+	public void setFecha2(Date fecha2) {
+		this.fecha2 = fecha2;
+	}
+
 	public String[] getLocation() {
 		return location;
 	}
@@ -162,6 +210,14 @@ private static final long serialVersionUID = 464463468460743L;
 
 	public void setRegistroSeleccionado(ProyectoMB registroSeleccionado) {
 		this.registroSeleccionado = registroSeleccionado;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }
