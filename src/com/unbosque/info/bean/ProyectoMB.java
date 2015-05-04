@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import org.springframework.dao.DataAccessException;
 
@@ -39,6 +40,7 @@ private static final long serialVersionUID = 464463468460743L;
 	private String nompro;
     private String depar;
     private String ciudad;
+    private String[] location;
 	
 
     List<Proyecto> proyectoList;
@@ -51,11 +53,13 @@ private static final long serialVersionUID = 464463468460743L;
 
 			Proyecto proyecto = new Proyecto();
 			
-			proyecto.setNombre(getNompro());
+			proyecto.setNombre("proyect");
+			
 			proyecto.setEstado("A");
-			proyecto.setIdCiudad(getCiudad());
-			proyecto.setIdDpto(getDepar());
-			getProyectoService().addProyecto(proyecto);
+			proyecto.setIdCiudad("city");
+			proyecto.setIdDpto("depar");
+			
+			//getProyectoService().addProyecto(proyecto);
 			reset();
 			
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
@@ -144,6 +148,14 @@ private static final long serialVersionUID = 464463468460743L;
 		this.ciudad = ciudad;
 	}
 
+	public String[] getLocation() {
+		return location;
+	}
+
+	public void setLocation(String[] location) {
+		this.location = location;
+	}
+
 	public ProyectoMB getRegistroSeleccionado() {
 		return registroSeleccionado;
 	}
@@ -151,26 +163,5 @@ private static final long serialVersionUID = 464463468460743L;
 	public void setRegistroSeleccionado(ProyectoMB registroSeleccionado) {
 		this.registroSeleccionado = registroSeleccionado;
 	}
-
-
-	public void crearPro(ActionEvent event) {
-	        RequestContext context = RequestContext.getCurrentInstance();
-	        FacesContext contex = FacesContext.getCurrentInstance();
-	        
-	        FacesMessage message = null;
-	        boolean loggedIn = false;
-	         
-	        if(nompro != null && depar != null && ciudad != null) {
-	            loggedIn = true;
-	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "creado", nompro);
-	        
-	        } else {
-	            loggedIn = false;
-	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "crear Error", "Invalid credentials");
-	        }
-	         
-	        FacesContext.getCurrentInstance().addMessage(null, message);
-	        //context.addCallbackParam("loggedIn", loggedIn);
-	    }
 	
 }

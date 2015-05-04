@@ -134,20 +134,11 @@
         	</p:column>
         	<p:column>
         		<f:facet name="header">
-        			<h:outputText value="Departamento" />
+        			<h:outputText value="Departamento y Ciudad" />
         		</f:facet>
-        		<h:outputText value="#{ciudad.nombreDepto}"/>
-        		<p:selectOneRadio value="#{proyectoMB.depar}">  
+        		<h:outputLabel for="depar" value="#{ciudad.nombreDepto}, #{ciudad.nombre}"/>
+        		<p:selectOneRadio id="depar" value="#{proyectoMB.depar}">  
             <f:selectItem itemValue="#{ciudad.nombreDepto}" />  
-       			 </p:selectOneRadio>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Ciudad" />
-        		</f:facet>
-        		<h:outputText value="#{ciudad.nombre}"/>
-        		<p:selectOneRadio value="#{proyectoMB.ciudad}">  
-            <f:selectItem itemValue="#{ciudad.nombre}" />  
        			 </p:selectOneRadio>
         	</p:column>
         	</p:dataTable>

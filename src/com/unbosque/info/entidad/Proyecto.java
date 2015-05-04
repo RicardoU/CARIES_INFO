@@ -12,21 +12,18 @@ import javax.persistence.*;
 @Entity
 @Table(name="proyecto")
 public class Proyecto implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1443L;
 
-	
-	
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	@Column(name="id_ciudad")
+	@Column(name="id_ciudad", nullable = false)
 	private String idCiudad;
 
-	@Column(name="id_dpto")
+	@Column(name="id_dpto", nullable = false)
 	private String idDpto;
 
 	@Column(name = "nombre", nullable = false)

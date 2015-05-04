@@ -27,7 +27,7 @@ public class ProyectoService {
 	}
 
 	@Transactional(readOnly = false)
-	public void updateCiudad(Proyecto proyecto) {
+	public void updateProyecto(Proyecto proyecto) {
 		getProyectoDAO().updateProyecto(proyecto);
 	}
 

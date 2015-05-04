@@ -20,7 +20,7 @@ import com.unbosque.info.service.DepartamentoService;
 @SessionScoped
 public class DepartamentoMB implements Serializable {
 
-	private static final long serialVersionUID = -7809396168460749463L;
+	private static final long serialVersionUID = -780939568460749463L;
 
 	private DepartamentoMB registroSeleccionado;
 
@@ -39,7 +39,32 @@ public class DepartamentoMB implements Serializable {
 
 			RequestContext context = RequestContext.getCurrentInstance();
 			FacesMessage message = null;
+			boolean loggedIn = false;
+			
+			if(departamento==null){
+				
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+						"Error, El nombre del departamento no puede estar vacio ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+				
+				String a = departamento;
+				a.toCharArray();
+				int nNum = 0;
+				String t3 = "0123456789";
+				
+				for (int i=0;i<a.length();i++) {
+        			if ( t3.indexOf(a.charAt(i)) != -1 ) {
+        				nNum++;
+        				}
+        		}
+				
+				if ( nNum>=1) {
+					loggedIn = false;
+    	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "El nombre del departamento no puede contener números", "Invalid credentials");
+        		}else{
 
+        			loggedIn = true;
 			Departamento departamento = new Departamento();
 			
 			departamento.setNombre(getDepartamento());
@@ -50,10 +75,13 @@ public class DepartamentoMB implements Serializable {
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
 					"Registro agregado exitosamente.");
 			FacesContext.getCurrentInstance().addMessage(null, message);	
+        		}
+			}
 
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
+		
 
 	}
 
