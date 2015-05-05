@@ -3,8 +3,11 @@ package com.unbosque.info.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -14,7 +17,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import com.unbosque.info.entidad.Usuario;
-
 import com.unbosque.info.service.UsuarioService;
 
 import org.primefaces.context.RequestContext;
@@ -44,6 +46,9 @@ private static final long serialVersionUID = 5678093963468460743L;
     private String especus;
     private String telus;
     private String proyectosus;
+    private Timestamp fecha1;
+    private Timestamp fecha2;
+    
 	
     
     public void addUsuario() {
@@ -215,6 +220,9 @@ private static final long serialVersionUID = 5678093963468460743L;
                             				FacesContext.getCurrentInstance().addMessage(null, message);
                                 		}else{
 
+            
+           java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(6); 
+           
         			loggedIn = true;
 			Usuario usuario = new Usuario();
 			
@@ -228,6 +236,8 @@ private static final long serialVersionUID = 5678093963468460743L;
 			usuario.setEstado("A");
 			usuario.setTipoUsuario("U");
 			usuario.setIdProyecto(1);
+			usuario.setFechaClave(sqlTimestamp);
+			usuario.setFechaCreacion(sqlTimestamp);
 			getUsuarioService().addUsuario(usuario);
 			reset();
 	
@@ -384,6 +394,31 @@ private static final long serialVersionUID = 5678093963468460743L;
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+
+
+	public Timestamp getFecha1() {
+		return fecha1;
+	}
+
+
+
+	public void setFecha1(Timestamp fecha1) {
+		this.fecha1 = fecha1;
+	}
+
+
+
+	public Timestamp getFecha2() {
+		return fecha2;
+	}
+
+
+
+	public void setFecha2(Timestamp fecha2) {
+		this.fecha2 = fecha2;
 	}
 
 

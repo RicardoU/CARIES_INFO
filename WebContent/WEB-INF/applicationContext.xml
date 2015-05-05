@@ -11,6 +11,8 @@
 	<!-- Beans Declaration -->
 	<bean id="Departamento" class="com.unbosque.info.entidad.Departamento" />
 	<bean id="Ciudad" class="com.unbosque.info.entidad.Ciudad" />
+	<bean id="Proyecto" class="com.unbosque.info.entidad.Proyecto" />
+	<bean id="Usuario" class="com.unbosque.info.entidad.Usuario" />
 
 
 	<!-- User Service Declaration -->
@@ -20,12 +22,24 @@
 	<bean id="CiudadService" class="com.unbosque.info.service.CiudadService">
 		<property name="CiudadDAO" ref="CiudadDAO" />
 	</bean>
+	<bean id="ProyectoService" class="com.unbosque.info.service.ProyectoService">
+		<property name="ProyectoDAO" ref="ProyectoDAO" />
+	</bean>
+	<bean id="UsuarioService" class="com.unbosque.info.service.UsuarioService">
+		<property name="UsuarioDAO" ref="UsuarioDAO" />
+	</bean>
 
 	<!-- User DAO Declaration -->
 	<bean id="DepartamentoDAO" class="com.unbosque.info.dao.DepartamentoDAO">
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
 	<bean id="CiudadDAO" class="com.unbosque.info.dao.CiudadDAO">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+	<bean id="ProyectoDAO" class="com.unbosque.info.dao.ProyectoDAO">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+	<bean id="UsuarioDAO" class="com.unbosque.info.dao.UsuarioDAO">
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
 
@@ -49,6 +63,8 @@
 			<list>
 				<value>com.unbosque.info.entidad.Departamento</value>
 				<value>com.unbosque.info.entidad.Ciudad</value>
+				<value>com.unbosque.info.entidad.Proyecto</value>
+				<value>com.unbosque.info.entidad.Usuario</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

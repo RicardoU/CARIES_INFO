@@ -84,8 +84,8 @@ private static final long serialVersionUID = 464463468460743L;
 			Proyecto proyecto = new Proyecto();
 			proyecto.setNombre(getNompro());
 			proyecto.setEstado("A");
-			proyecto.setIdCiudad("city");
-			proyecto.setIdDpto("depar");
+			proyecto.setIdCiudad(getCiudad());
+			proyecto.setIdDpto(getDepar());
 			getProyectoService().addProyecto(proyecto);
 			reset();
 			
