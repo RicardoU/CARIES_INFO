@@ -45,7 +45,7 @@ private static final long serialVersionUID = 5678093963468460743L;
     private String mailus;
     private String especus;
     private String telus;
-    private String proyectosus;
+    private int proyectosus;
     private Timestamp fecha1;
     private Timestamp fecha2;
     
@@ -235,7 +235,7 @@ private static final long serialVersionUID = 5678093963468460743L;
 			usuario.setTelefono(getTelus());
 			usuario.setEstado("A");
 			usuario.setTipoUsuario("U");
-			usuario.setIdProyecto(1);
+			usuario.setIdProyecto(getProyectosus());
 			usuario.setFechaClave(sqlTimestamp);
 			usuario.setFechaCreacion(sqlTimestamp);
 			getUsuarioService().addUsuario(usuario);
@@ -281,7 +281,6 @@ private static final long serialVersionUID = 5678093963468460743L;
     	this.setMailus(null);
     	this.setEspecus(null);
     	this.setTelus(null);
-    	this.setProyectosus(null);
 	}
 
 	public List<Usuario> getUsuariosList() {
@@ -346,11 +345,11 @@ private static final long serialVersionUID = 5678093963468460743L;
 		this.mailus = mailus;
 	}
 
-	public String getProyectosus() {
+	public int getProyectosus() {
 		return proyectosus;
 	}
 
-	public void setProyectosus(String proyectosus) {
+	public void setProyectosus(int proyectosus) {
 		this.proyectosus = proyectosus;
 	}
 	

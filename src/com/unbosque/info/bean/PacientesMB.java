@@ -3,6 +3,8 @@ package com.unbosque.info.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,7 +14,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
  
 
+
+
+
+
+
+
 import org.primefaces.context.RequestContext;
+import org.springframework.dao.DataAccessException;
+
+import com.unbosque.info.entidad.Paciente;
+import com.unbosque.info.entidad.Proyecto;
+import com.unbosque.info.service.PacienteService;
+import com.unbosque.info.service.ProyectoService;
  
 @ManagedBean (name = "pacientesMB")
 @SessionScoped
@@ -22,15 +36,125 @@ private static final long serialVersionUID = 2563448963468460743L;
 	
 	private PacientesMB registroSeleccionado;
    
+	// Spring Customer Service is injected...
+			@ManagedProperty(value = "#{PacienteService}")
+			PacienteService pacienteService;
+	
+	private int id;
 	private String nompa;
     private String apepa;
-    private String idepa;
-    private String edadpa;
+    private int idepa;
+    private int edadpa;
     private String generopa;
     private String ciudadpa;
     private String csaludpa;
     private String denticionpa;
-    private String proyectospa;
+    private int proyectospa;
+    private String telpa;
+    private String correopa;
+    
+    List<Paciente> pacienteList;
+
+    public void addPaciente() {
+		try {
+
+			RequestContext context = RequestContext.getCurrentInstance();
+			FacesMessage message = null;
+			
+			boolean loggedIn = false;
+
+			if(nompa.equals("")){
+				
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+						"Error, El nombre del Paciente no puede estar vacío ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+			
+				String a = nompa;
+				a.toCharArray();
+				int nNum = 0;
+				String t3 = "0123456789";
+				
+				for (int i=0;i<a.length();i++) {
+        			if ( t3.indexOf(a.charAt(i)) != -1 ){
+        				nNum++;
+        				}
+        		}
+				
+				if ( nNum!=0) {
+					loggedIn = false;
+    	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El nombre del Paciente no puede contener números");
+    				FacesContext.getCurrentInstance().addMessage(null, message);
+        		}else{
+
+        	Paciente paciente = new Paciente();
+        	paciente.setNombresApellidos(getNompa() + " " + getApepa());
+        	paciente.setEdad(getEdadpa());
+        	paciente.setEstado("A");
+        	paciente.setCiudad(getCiudadpa());
+        	paciente.setCorreo(getCorreopa());
+        	paciente.setDenticion(getDenticionpa());
+        	paciente.setGenero(getGeneropa());
+        	paciente.setIdentificacion(getIdepa());
+        	paciente.setIdProyecto(getProyectospa());
+        	paciente.setLugarAtencion(getCsaludpa());
+        	paciente.setTelefono(getTelpa());
+			getPacienteService().addPaciente(paciente);
+			reset();
+			
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+					"Registro agregado exitosamente.");
+			FacesContext.getCurrentInstance().addMessage(null, message);	
+
+        		}
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+
+	}
+    
+    public void reset() {
+    	this.setNompa("");
+    	this.setApepa("");
+		this.setId(0);
+		this.setGeneropa("");
+		this.setCiudadpa("");
+		this.setCsaludpa("");
+		this.setDenticionpa("");
+		this.setTelpa("");
+		this.setCorreopa("");
+	}
+
+	public List<Paciente> getPacientesList() {
+		pacienteList = new ArrayList<Paciente>();
+		pacienteList.addAll(getPacienteService().getPacientes());
+		return pacienteList;
+	}
+
+	public PacienteService getPacienteService() {
+		return pacienteService;
+	}
+
+	public void setPacienteService(PacienteService pacienteService) {
+		this.pacienteService = pacienteService;
+	}
+
+	public List<Paciente> getPacienteList() {
+		return pacienteList;
+	}
+
+	public void setPacienteList(List<Paciente> pacienteList) {
+		this.pacienteList = pacienteList;
+	}
+    
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getNompa() {
 		return nompa;
@@ -48,11 +172,11 @@ private static final long serialVersionUID = 2563448963468460743L;
 		this.apepa = apepa;
 	}
 
-	public String getEdadpa() {
+	public int getEdadpa() {
 		return edadpa;
 	}
 
-	public void setEdadpa(String edadpa) {
+	public void setEdadpa(int edadpa) {
 		this.edadpa = edadpa;
 	}
 
@@ -88,19 +212,35 @@ private static final long serialVersionUID = 2563448963468460743L;
 		this.denticionpa = denticionpa;
 	}
 
-	public String getIdepa() {
+	public int getIdepa() {
 		return idepa;
 	}
 
-	public void setIdepa(String idepa) {
+	public void setIdepa(int idepa) {
 		this.idepa = idepa;
 	}
 
-	public String getProyectospa() {
+	public String getTelpa() {
+		return telpa;
+	}
+
+	public void setTelpa(String telpa) {
+		this.telpa = telpa;
+	}
+
+	public String getCorreopa() {
+		return correopa;
+	}
+
+	public void setCorreopa(String correopa) {
+		this.correopa = correopa;
+	}
+
+	public int getProyectospa() {
 		return proyectospa;
 	}
 
-	public void setProyectospa(String proyectospa) {
+	public void setProyectospa(int proyectospa) {
 		this.proyectospa = proyectospa;
 	}
 
@@ -119,8 +259,8 @@ private static final long serialVersionUID = 2563448963468460743L;
 	        FacesMessage message = null;
 	        boolean loggedIn = false;
 	         
-	        if(nompa != null && apepa != null && edadpa != null && generopa != null && ciudadpa != null && csaludpa != null && denticionpa != null
-	        		&& idepa != null && proyectospa != null) {
+	        if(nompa != null && apepa != null && edadpa ==0 && generopa != null && ciudadpa != null && csaludpa != null && denticionpa != null
+	        		&& idepa == 0 && proyectospa == 0) {
 	        	
 
 	            loggedIn = true;
@@ -163,11 +303,11 @@ private static final long serialVersionUID = 2563448963468460743L;
         FacesMessage message = null;
         boolean loggedIn = false;
          
-        if(idepa != null ) {
+        if(idepa == 0 ) {
         	
 
             loggedIn = true;
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "consulta", idepa);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "consulta", "");
         	}
         	
          else {

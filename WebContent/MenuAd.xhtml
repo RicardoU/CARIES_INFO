@@ -43,7 +43,7 @@
 	<h:form>
 	<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
  
-    <p:dialog header="Crear Usuario" widgetVar="dlg" resizable="false" position="380,48" width="410" height="450">
+    <p:dialog header="Crear Usuario" widgetVar="dlg" resizable="false" position="380,48" width="1100" height="630">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel value="Nombre:" />
             <p:inputText id="nomus" value="#{usuariosMB.nomus}"/>
@@ -61,13 +61,64 @@
             <p:inputText id="especus"  value="#{usuariosMB.especus}"/>
             <h:outputLabel value="Teléfono:" />
             <p:inputText id="telus"  value="#{usuariosMB.telus}"/>
-            <p:outputLabel for="proyectosus" value="Proyecto:" />
-        <p:selectOneMenu id="proyectosus"  style="width:132px">
-            <f:selectItem itemLabel="Select One" itemValue="" />
-            <f:selectItem itemLabel="Proyecto 01" itemValue="#{usuariosMB.proyectosus}" />
-            <f:selectItem itemLabel="Proyecto 02" itemValue="#{usuariosMB.proyectosus}" />
-            <f:selectItem itemLabel="Proyecto 03" itemValue="#{usuariosMB.proyectosus}" />
-        </p:selectOneMenu>
+            <h:outputText value="Proyectos: "></h:outputText>
+        <p:dataTable id="proyecto" var="proyecto"
+        	value="#{proyectoMB.proyectosList}" style="width: 100%" 
+        	emptyMessage="No hay proyectos registrados" paginator="true"
+        	rows="4" paginatorPosition="top"
+        	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="ID"/>
+        		</f:facet>
+        			<h:outputText value="#{proyecto.id}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Nombre" />
+        		</f:facet>
+        		<h:outputText value="#{proyecto.nombre}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Población" />
+        		</f:facet>
+        		<h:outputText value="#{proyecto.poblacion}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Tipo" />
+        		</f:facet>
+        		<h:outputText value="#{proyecto.tipo}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Fecha Inicial" />
+        		</f:facet>
+        		<h:outputText value="#{proyecto.fechai}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Fecha Final" />
+        		</f:facet>
+        		<h:outputText value="#{proyecto.fechaf}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Locación" />
+        		</f:facet>
+        		<h:outputText value="#{proyecto.nomCiudad}, #{proyecto.nomDpto}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Seleccionar" />
+        		</f:facet>
+        		<p:selectOneRadio value="#{usuariosMB.proyectosus}">  
+            <f:selectItem itemValue="#{proyecto.id}" />  
+       			 </p:selectOneRadio>
+       			 
+        	</p:column>
+        	</p:dataTable>
  
             <f:facet name="footer">
                 <p:commandButton value="Crear" update="growl" actionListener="#{usuariosMB.addUsuario()}"
@@ -81,57 +132,90 @@
 <h:form>
 <p:growl id="growl2" sticky="true" showDetail="true" life="2600" />
  
-    <p:dialog header="Lista de Usuarios" widgetVar="dlg2" resizable="false" position="380,48" width="900" height="100">
+    <p:dialog header="Lista de Usuarios" widgetVar="dlg2" resizable="false" position="380,48" width="900" height="300">
         <h:panelGrid columns="2" cellpadding="5">
-            <p:dataTable var="car">
-        <p:column headerText="Apellido">
-        <h:outputText value="" />
-        </p:column>
- 
-        <p:column headerText="Nombre">
-        <h:outputText value="" />
-        </p:column>
- 
-        <p:column headerText="Email">
-        <h:outputText value="" />
-        </p:column>
- 
-        <p:column headerText="Proyecto">
-        <h:outputText value="" />
-        </p:column>
-        
-        <p:column headerText="Borrar">
-        <p:selectBooleanCheckbox value="" />
-        </p:column>
-        
-        <p:column headerText="Editar">
-        <p:selectBooleanCheckbox value="" />
-        </p:column>
- 		</p:dataTable>
+        <p:dataTable id="ususario" var="usuario"
+        	value="#{usuariosMB.usuariosList.subList(2, usuariosMB.usuariosList.size())}" style="width: 100%" 
+        	emptyMessage="No hay ususarios registrados" paginator="true"
+        	rows="4" paginatorPosition="top"
+        	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Nombre" />
+        		</f:facet>
+        		<h:outputText value="#{usuario.apellidosNombres}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Nombre de Usuario" />
+        		</f:facet>
+        		<h:outputText value="#{usuario.login}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Proyecto" />
+        		</f:facet>
+        		<h:outputText value="#{usuario.idProyecto}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Especialidad" />
+        		</f:facet>
+        		<h:outputText value="#{usuario.especialidad}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Teléfono" />
+        		</f:facet>
+        		<h:outputText value="#{usuario.telefono}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Identificación" />
+        		</f:facet>
+        		<h:outputText value="#{usuario.identificacion}"/>
+        	</p:column>
+        	</p:dataTable>
         </h:panelGrid>
     </p:dialog>
 </h:form>
 <h:form>
 	<p:growl id="growl3" sticky="true" showDetail="true" life="3000" />
  
-    <p:dialog header="Crear Proyecto" widgetVar="dlg3" resizable="false" position="380,48" width="750" height="420">
+    <p:dialog header="Crear Proyecto" widgetVar="dlg3" resizable="false" position="350,37" width="750" height="640">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel value="Nombre del proyecto:" />
             <p:inputText id="nomproy" value="#{proyectoMB.nompro}" />
-            
-            <h:outputText value="Locaciones: "></h:outputText>
+        	 <p:outputLabel for="fechai" value="Fecha Inicial:" />
+        	<p:calendar id="fechai" value="#{proyectoMB.fecha1}" showOn="button" />
+        	
+        	 <p:outputLabel for="fechaf" value="Fecha Final:" />
+        	<p:calendar id="fechaf" value="#{proyectoMB.fecha2}" showOn="button"/>
+        	
+            <h:outputLabel for="tipoproyect" value="Tipo de Proyecto:" />
+            <p:selectOneMenu id="tipoproyect"  value="#{proyectoMB.tipo}" style="width:140px">
+            <f:selectItem itemLabel="Social" itemValue="Social" />
+            <f:selectItem itemLabel="Investigativo" itemValue="Investigativo" />
+            <f:selectItem itemLabel="Productivo" itemValue="Productivo" />
+            <f:selectItem itemLabel="Comunitario" itemValue="Comunitario" />
+        </p:selectOneMenu>
+            <h:outputLabel for="poblacion" value="Población:" />
+            <p:selectOneMenu id="poblacion" value="#{proyectoMB.poblacion}" style="width:140px">
+            <f:selectItem itemLabel="Niños" itemValue="Niños"/>
+            <f:selectItem itemLabel="Adultos" itemValue="Adultos"/>
+        </p:selectOneMenu>
+			<h:outputLabel for="menu" value="Odóntologos Participantes:" />
+        	<p:selectCheckboxMenu id="menu" value="#{menuAdMB.selectedOdontologos}" label="Odontologos"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:310px">
+            <f:selectItems value="#{menuAdMB.odontologos}" />
+        	</p:selectCheckboxMenu>
+        	
+        	 <h:outputText value="Locaciones: "></h:outputText>
         <p:dataTable id="ciudad" var="ciudad"
-        	value="#{ciudadMB.ciudadesList}" style="width: 70%" 
+        	value="#{ciudadMB.ciudadesList}" style="width: 100%" 
         	emptyMessage="No hay locaciones registradas" paginator="true"
-        	rows="7" paginatorPosition="top"
-        	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}"
-        	rowsPerPageTemplate="5,10,15">
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="ID"/>
-        		</f:facet>
-        			<h:outputText value="#{ciudad.id}"/>
-        	</p:column>
+        	rows="3" paginatorPosition="top"
+        	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
         	<p:column>
         		<f:facet name="header">
         			<h:outputText value="Departamento" />
@@ -151,25 +235,6 @@
        			 </p:selectOneRadio>
         	</p:column>
         	</p:dataTable>
-        
-        	 <p:outputLabel for="fechai" value="Fecha Inicial:" />
-        	<p:calendar id="fechai" value="#{proyectoMB.fecha1}" showOn="button" />
-        	
-        	 <p:outputLabel for="fechaf" value="Fecha Fial:" />
-        	<p:calendar id="fechaf" value="#{proyectoMB.fecha2}" showOn="button" />
-        	
-            <h:outputLabel value="Tipo de Proyecto:" />
-            <p:inputText  />
-            <h:outputLabel for="poblacion" value="Población:" />
-            <p:selectOneMenu id="poblacion"  style="width:125px">
-            <f:selectItem itemLabel="Niños" />
-            <f:selectItem itemLabel="Adultos" />
-        </p:selectOneMenu>
-			<h:outputLabel for="menu" value="Odóntologos Participantes:" />
-        	<p:selectCheckboxMenu id="menu" value="#{menuAdMB.selectedOdontologos}" label="Odontologos"
-                              filter="true" filterMatchMode="startsWith" panelStyle="width:310px">
-            <f:selectItems value="#{menuAdMB.odontologos}" />
-        	</p:selectCheckboxMenu>
         	
  
             <f:facet name="footer">
@@ -185,7 +250,7 @@
 <h:form>
 	<p:growl id="growl4" sticky="true" showDetail="true" life="3000" />
  
-    <p:dialog header="Añadir Locación - Departamento" widgetVar="dlg4" resizable="false" position="380,48" width="500" height="200">
+    <p:dialog header="Añadir Locación - Departamento" widgetVar="dlg4" resizable="false" position="380,48" width="500" height="99">
         <h:panelGrid columns="2" cellpadding="5">
             <p:outputLabel for="depar" value="Departamento:" />
         	<p:inputText id="depar" value="#{departamentoMB.departamento}"/>
@@ -203,15 +268,14 @@
 <h:form>
 	<p:growl id="growl5" sticky="true" showDetail="true" life="3000" />
  
-    <p:dialog header="Añadir Locación - Ciudad" widgetVar="dlg5" resizable="false" position="380,48" width="700" height="400">
+    <p:dialog header="Añadir Locación - Ciudad" widgetVar="dlg5" resizable="false" position="380,48" width="480" height="480">
         
         <h:outputText value="Departamentos: "></h:outputText>
         <p:dataTable id="departamento" var="departamento"
-        	value="#{departamentoMB.departamentosList}" style="width: 70%" 
+        	value="#{departamentoMB.departamentosList}" style="width: 100%" 
         	emptyMessage="No hay departamentos registrados" paginator="true"
-        	rows="7" paginatorPosition="top"
-        	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}"
-        	rowsPerPageTemplate="5,10,15">
+        	rows="4" paginatorPosition="top"
+        	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
         	<p:column>
         		<f:facet name="header">
         			<h:outputText value="ID"/>

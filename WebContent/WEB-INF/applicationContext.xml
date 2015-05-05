@@ -13,6 +13,8 @@
 	<bean id="Ciudad" class="com.unbosque.info.entidad.Ciudad" />
 	<bean id="Proyecto" class="com.unbosque.info.entidad.Proyecto" />
 	<bean id="Usuario" class="com.unbosque.info.entidad.Usuario" />
+	<bean id="Paciente" class="com.unbosque.info.entidad.Paciente" />
+
 
 
 	<!-- User Service Declaration -->
@@ -28,6 +30,12 @@
 	<bean id="UsuarioService" class="com.unbosque.info.service.UsuarioService">
 		<property name="UsuarioDAO" ref="UsuarioDAO" />
 	</bean>
+	<bean id="PacienteService" class="com.unbosque.info.service.PacienteService">
+		<property name="PacienteDAO" ref="PacienteDAO" />
+	</bean>
+	
+	
+	
 
 	<!-- User DAO Declaration -->
 	<bean id="DepartamentoDAO" class="com.unbosque.info.dao.DepartamentoDAO">
@@ -42,6 +50,11 @@
 	<bean id="UsuarioDAO" class="com.unbosque.info.dao.UsuarioDAO">
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
+	<bean id="PacienteDAO" class="com.unbosque.info.dao.PacienteDAO">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+	
+	
 
 	<!-- Data Source Declaration -->
 	<bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -65,6 +78,7 @@
 				<value>com.unbosque.info.entidad.Ciudad</value>
 				<value>com.unbosque.info.entidad.Proyecto</value>
 				<value>com.unbosque.info.entidad.Usuario</value>
+				<value>com.unbosque.info.entidad.Paciente</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -1,6 +1,7 @@
 package com.unbosque.info.entidad;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.*;
 
@@ -20,17 +21,29 @@ public class Proyecto implements Serializable {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	@Column(name="id_ciudad", nullable = false)
-	private String idCiudad;
+	@Column(name="nombre_ciudad", nullable = false)
+	private String nomCiudad;
 
-	@Column(name="id_dpto", nullable = false)
-	private String idDpto;
+	@Column(name="nombre_dpto", nullable = false)
+	private String nomDpto;
 
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
 	
 	@Column(name = "estado", nullable = false)
 	private String estado;
+	
+	@Column(name = "tipo_proyecto", nullable = false)
+	private String tipo;
+	
+	@Column(name = "poblacion", nullable = false)
+	private String poblacion;
+	
+	@Column(name = "fecha_inicial", nullable = false)
+	private java.util.Date fechai;
+	
+	@Column(name = "fecha_final", nullable = false)
+	private java.util.Date fechaf;
 
 	public Proyecto() {
 		super();
@@ -52,20 +65,20 @@ public class Proyecto implements Serializable {
 		this.id = id;
 	}
 
-	public String getIdCiudad() {
-		return this.idCiudad;
+	public String getNomCiudad() {
+		return this.nomCiudad;
 	}
 
-	public void setIdCiudad(String idCiudad) {
-		this.idCiudad = idCiudad;
+	public void setNomCiudad(String nomCiudad) {
+		this.nomCiudad = nomCiudad;
 	}
 
-	public String getIdDpto() {
-		return this.idDpto;
+	public String getNomDpto() {
+		return this.nomDpto;
 	}
 
-	public void setIdDpto(String idDpto) {
-		this.idDpto = idDpto;
+	public void setNomDpto(String nomDpto) {
+		this.nomDpto = nomDpto;
 	}
 
 	public String getNombre() {
@@ -74,6 +87,38 @@ public class Proyecto implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+	public java.util.Date getFechai() {
+		return fechai;
+	}
+
+	public void setFechai(java.util.Date date) {
+		this.fechai = date;
+	}
+
+	public java.util.Date getFechaf() {
+		return fechaf;
+	}
+
+	public void setFechaf(java.util.Date date) {
+		this.fechaf = date;
 	}
 
 }

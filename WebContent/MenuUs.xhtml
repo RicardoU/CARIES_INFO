@@ -52,29 +52,34 @@
             <p:inputText id="idepa" value="#{pacientesMB.idepa}"/>
             <h:outputLabel value="Edad:" />
             <p:inputText id="edadus"  value="#{pacientesMB.edadpa}"/>
-            <h:outputLabel value="Género:" />
-            <p:inputText id="generous" value="#{pacientesMB.generopa}" />
+            <h:outputLabel for="generous" value="Género:" />
+            <p:selectOneMenu id="generous" value="#{pacientesMB.generopa}" style="width:140px">
+            <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+            <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+            </p:selectOneMenu>
+            <h:outputLabel value="Correo:" />
+            <p:inputText id="correous" value="#{pacientesMB.correopa}" />
+            <h:outputLabel value="Teléfono:" />
+            <p:inputText id="telus" value="#{pacientesMB.telpa}" />
             <p:outputLabel for="ciudadus" value="Ciudad:" />
-        <p:selectOneMenu id="ciudadus"  style="width:140px">
-            <f:selectItem itemLabel="Ciudad Disponible" itemValue="#{pacientesMB.ciudadpa}" />
-        </p:selectOneMenu>
+            <p:inputText id="ciudadus" value="#{pacientesMB.ciudadpa}" />
             <h:outputLabel value="Centro de Salud donde fue atendido:" />
             <p:inputText id="csaludus"  value="#{pacientesMB.csaludpa}"/>
             <p:outputLabel for="denticionus" value="Tipo de Dentición:" />
-        <p:selectOneMenu id="denticionus"  style="width:140px">
-            <f:selectItem itemLabel="Primaria" itemValue="#{pacientesMB.denticionpa}" />
-            <f:selectItem itemLabel="Mixta" itemValue="#{pacientesMB.denticionpa}" />
-            <f:selectItem itemLabel="Permanente" itemValue="#{pacientesMB.denticionpa}" />
+        <p:selectOneMenu id="denticionus"  value="#{pacientesMB.denticionpa}" style="width:140px">
+            <f:selectItem itemLabel="Primaria" itemValue="Primaria" />
+            <f:selectItem itemLabel="Mixta" itemValue="Mixta" />
+            <f:selectItem itemLabel="Permanente" itemValue="Permanente" />
         </p:selectOneMenu>
         <p:outputLabel for="proyectospa" value="Proyecto:" />
-        <p:selectOneMenu id="proyectospa"  style="width:140px">
-            <f:selectItem itemLabel="Proyecto 01" itemValue="#{pacientesMB.proyectospa}" />
-            <f:selectItem itemLabel="Proyecto 02" itemValue="#{pacientesMB.proyectospa}" />
-            <f:selectItem itemLabel="Proyecto 03" itemValue="#{pacientesMB.proyectospa}" />
+        <p:selectOneMenu id="proyectospa" value="#{pacientesMB.proyectospa}"  style="width:140px">
+            <f:selectItem itemLabel="Proyecto 01" itemValue="1" />
+            <f:selectItem itemLabel="Proyecto 02" itemValue="2" />
+            <f:selectItem itemLabel="Proyecto 03" itemValue="3" />
         </p:selectOneMenu>
  
             <f:facet name="footer">
-                <p:commandButton value="Crear" update="growl" actionListener="#{pacientesMB.crearPa}"
+                <p:commandButton value="Crear" update="growl" actionListener="#{pacientesMB.addPaciente()}"
                                  oncomplete="handlePacientesMBRequest(xhr, status, args)" />
             </f:facet>  
         </h:panelGrid>
@@ -85,41 +90,74 @@
 <h:form>
 <p:growl id="growl2" sticky="true" showDetail="true" life="2600" />
  
-    <p:dialog header="Lista de Pacientes" widgetVar="dlg2" resizable="false" position="380,48" width="900" height="100">
+    <p:dialog header="Lista de Pacientes" widgetVar="dlg2" resizable="false" position="380,48" width="1100" height="550">
         <h:panelGrid columns="2" cellpadding="5">
-            <p:dataTable var="car">
-        <p:column headerText="Apellido">
-        <h:outputText value="" />
-        </p:column>
- 
-        <p:column headerText="Nombre">
-        <h:outputText value="" />
-        </p:column>
- 
-        <p:column headerText="Género">
-        <h:outputText value="" />
-        </p:column>
- 
-        <p:column headerText="Centro de Salud">
-        <h:outputText value="" />
-        </p:column>
-        
-        <p:column headerText="Ciudad">
-        <h:outputText value="" />
-        </p:column>
-        
-        <p:column headerText="Dentición">
-        <h:outputText value="" />
-        </p:column>
-        
-        <p:column headerText="Borrar">
-        <p:selectBooleanCheckbox value="" />
-        </p:column>
-        
-        <p:column headerText="Editar">
-        <p:selectBooleanCheckbox value="" />
-        </p:column>
- 		</p:dataTable>
+            <p:dataTable id="paciente" var="paciente"
+        	value="#{pacientesMB.pacientesList}" style="width: 100%" 
+        	emptyMessage="No hay pacientes registrados" paginator="true"
+        	rows="4" paginatorPosition="top"
+        	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Nombre" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.nombresApellidos}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Identificación" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.identificacion}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Teléfono" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.telefono}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Correo" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.correo}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Edad" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.edad}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Género" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.genero}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="ID Proyecto" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.idProyecto}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Ciudad" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.ciudad}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Punto Atención" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.lugarAtencion}"/>
+        	</p:column>
+        	<p:column>
+        		<f:facet name="header">
+        			<h:outputText value="Dentición" />
+        		</f:facet>
+        		<h:outputText value="#{paciente.denticion}"/>
+        	</p:column>
+        	</p:dataTable>
         </h:panelGrid>
     </p:dialog>
 </h:form>

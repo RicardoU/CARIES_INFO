@@ -1,6 +1,7 @@
 package com.unbosque.info.entidad;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -9,28 +10,49 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Paciente.findAll", query="SELECT p FROM Paciente p")
+@Table(name="paciente")
 public class Paciente implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1234L;
 
-	private String correo;
+	
 
-	private String estado;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
 	private Integer id;
 
 	@Column(name="id_proyecto")
 	private Integer idProyecto;
 
+	@Column(name="identificacion")
 	private Integer identificacion;
+	
+	@Column(name="correo")
+	private String correo;
+
+	@Column(name="estado")
+	private String estado;
 
 	@Column(name="nombres_apellidos")
 	private String nombresApellidos;
 
-	@Column(name="prog_nutricion")
-	private String progNutricion;
-
+	@Column(name="telefono")
 	private String telefono;
+	
+	@Column(name="edad")
+	private Integer edad;
+	
+	@Column(name="genero")
+	private String genero;
+	
+	@Column(name="ciudad")
+	private String ciudad;
+	
+	@Column(name="lugar_atencion")
+	private String lugarAtencion;
+	
+	@Column(name="denticion")
+	private String denticion;
 
 	public Paciente() {
 	}
@@ -83,20 +105,52 @@ public class Paciente implements Serializable {
 		this.nombresApellidos = nombresApellidos;
 	}
 
-	public String getProgNutricion() {
-		return this.progNutricion;
-	}
-
-	public void setProgNutricion(String progNutricion) {
-		this.progNutricion = progNutricion;
-	}
-
 	public String getTelefono() {
 		return this.telefono;
 	}
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getLugarAtencion() {
+		return lugarAtencion;
+	}
+
+	public void setLugarAtencion(String lugarAtencion) {
+		this.lugarAtencion = lugarAtencion;
+	}
+
+	public String getDenticion() {
+		return denticion;
+	}
+
+	public void setDenticion(String denticion) {
+		this.denticion = denticion;
 	}
 
 }

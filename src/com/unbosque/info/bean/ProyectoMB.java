@@ -42,9 +42,10 @@ private static final long serialVersionUID = 464463468460743L;
 	private String nompro;
     private String depar;
     private String ciudad;
-    private String[] location;
-    private Date fecha1;
-    private Date fecha2;
+    private java.util.Date fecha1;
+    private java.util.Date fecha2;
+    private String tipo;
+    private String poblacion;
 	
 
     List<Proyecto> proyectoList;
@@ -84,8 +85,12 @@ private static final long serialVersionUID = 464463468460743L;
 			Proyecto proyecto = new Proyecto();
 			proyecto.setNombre(getNompro());
 			proyecto.setEstado("A");
-			proyecto.setIdCiudad(getCiudad());
-			proyecto.setIdDpto(getDepar());
+			proyecto.setNomCiudad(getCiudad());
+			proyecto.setNomDpto(getDepar());
+			proyecto.setTipo(getTipo());
+			proyecto.setPoblacion(getPoblacion());
+			proyecto.setFechai(getFecha1());
+			proyecto.setFechaf(getFecha2());
 			getProyectoService().addProyecto(proyecto);
 			reset();
 			
@@ -121,6 +126,8 @@ private static final long serialVersionUID = 464463468460743L;
 		this.setDepar("");
 		this.setFecha1(null);
 		this.setFecha2(null);
+		this.setTipo("");
+		this.setPoblacion("");
 	}
 
 	public List<Proyecto> getProyectosList() {
@@ -180,28 +187,20 @@ private static final long serialVersionUID = 464463468460743L;
 		this.ciudad = ciudad;
 	}
 
-	public Date getFecha1() {
+	public java.util.Date getFecha1() {
 		return fecha1;
 	}
 
-	public void setFecha1(Date fecha1) {
+	public void setFecha1(java.util.Date fecha1) {
 		this.fecha1 = fecha1;
 	}
 
-	public Date getFecha2() {
+	public java.util.Date getFecha2() {
 		return fecha2;
 	}
 
-	public void setFecha2(Date fecha2) {
+	public void setFecha2(java.util.Date fecha2) {
 		this.fecha2 = fecha2;
-	}
-
-	public String[] getLocation() {
-		return location;
-	}
-
-	public void setLocation(String[] location) {
-		this.location = location;
 	}
 
 	public ProyectoMB getRegistroSeleccionado() {
@@ -218,6 +217,22 @@ private static final long serialVersionUID = 464463468460743L;
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
 	}
 	
 }
