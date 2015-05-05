@@ -14,6 +14,7 @@
 	<bean id="Proyecto" class="com.unbosque.info.entidad.Proyecto" />
 	<bean id="Usuario" class="com.unbosque.info.entidad.Usuario" />
 	<bean id="Paciente" class="com.unbosque.info.entidad.Paciente" />
+	
 
 
 

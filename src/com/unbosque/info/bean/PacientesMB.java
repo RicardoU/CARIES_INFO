@@ -300,7 +300,8 @@ private static final long serialVersionUID = 2563448963468460743L;
 	        //context.addCallbackParam("loggedIn", loggedIn);
 	    }
 	
-	public void crearOdon(ActionEvent event) {
+	public void crearOdon() {
+		
         RequestContext context = RequestContext.getCurrentInstance();
         FacesContext contex = FacesContext.getCurrentInstance();
         FacesMessage message = null;

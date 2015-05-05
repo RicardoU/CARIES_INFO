@@ -236,15 +236,46 @@
 <h:form>
 	<p:growl id="growl3" sticky="true" showDetail="true" life="3000" />
  
-    <p:dialog header="Crear Odontograma" widgetVar="dlg3" resizable="false" position="380,48" width="500" height="200">
+    <p:dialog header="Crear Odontograma" widgetVar="dlg3" resizable="false" position="380,48" width="700" height="300">
         <h:panelGrid columns="2" cellpadding="5">
-           <h:outputLabel value="Identificación del Paciente:" />
-            <p:inputText id="idepa" value="#{pacientesMB.idepa}"/>
- 
-            <f:facet name="footer">
-                <p:commandButton value="Crear" update="growl3" actionListener="#{pacientesMB.crearOdon}"
-                                 oncomplete="handlePacientesMBRequest(xhr, status, args)" />
-            </f:facet>  
+           <p:dataTable id="paciente" var="paciente"
+        	value="#{pacientesMB.pacientesList}" style="width: 100%" 
+        	emptyMessage="No hay pacientes registrados" paginator="true"
+        	rows="4" paginatorPosition="top"
+        	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Nombre" /></f:facet>
+        		<h:outputText value="#{paciente.nombresApellidos}"/>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Identificación" /></f:facet>
+        		<h:outputText value="#{paciente.identificacion}"/>
+        	</p:column> 
+        	       	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="ID Proyecto" /></f:facet>
+        		<h:outputText value="#{paciente.idProyecto}"/>
+        	</p:column>  
+        	     	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Dentición" /></f:facet>
+        		<h:outputText value="#{paciente.denticion}"/>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Seleccionar" /></f:facet>
+        		<p:selectOneRadio value="#{odontogramaMB.idPaciente}">  
+            	<f:selectItem itemValue="#{paciente.identificacion}" />  
+       			 </p:selectOneRadio>
+        	</p:column>
+       		
+       		<p:column>
+        		<f:facet name="header"><h:outputText value="Odontograma " /></f:facet>
+        		<p:commandButton value="Crear" actionListener="#{pacientesMB.crearOdon()}"/>
+       		</p:column>
+        	</p:dataTable> 
         </h:panelGrid>
     </p:dialog>
     

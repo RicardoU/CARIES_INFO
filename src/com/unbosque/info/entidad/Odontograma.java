@@ -1,6 +1,7 @@
 package com.unbosque.info.entidad;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -9,10 +10,14 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Odontograma.findAll", query="SELECT o FROM Odontograma o")
+@Table(name="odontograma")
 public class Odontograma implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
 	private Integer id;
 
 	@Column(name="id_diente")
@@ -25,6 +30,7 @@ public class Odontograma implements Serializable {
 	private Integer idPropiedad;
 
 	public Odontograma() {
+		super();
 	}
 
 	public Integer getId() {

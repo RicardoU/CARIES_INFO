@@ -16,7 +16,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import com.unbosque.info.entidad.Proyecto;
 import com.unbosque.info.entidad.Usuario;
 import com.unbosque.info.service.UsuarioService;
 
@@ -50,7 +49,8 @@ private static final long serialVersionUID = 5678093963468460743L;
     private int proyectosus;
     private Timestamp fecha1;
     private Timestamp fecha2;
-    
+    private String login;
+    private String contraseña;
 	
     
     public void addUsuario() {
@@ -289,7 +289,50 @@ private static final long serialVersionUID = 5678093963468460743L;
 
 	}
     
-	
+    public void ingresar() {
+        FacesContext contex = FacesContext.getCurrentInstance();
+        
+        FacesMessage message = null;
+        
+
+        
+        for(int a = 0; a<usuarioService.getUsuarios().size(); a++){
+        	System.out.println(login);
+        	System.out.println(usuarioService.getUsuarios().get(a).getLogin());
+        	if(login.equals(usuarioService.getUsuarios().get(a).getLogin()))
+        			System.out.println("si1");
+        	if( getContraseña().equals(usuarioService.getUsuarios().get(a).getPassword())){
+        		if(usuarioService.getUsuarios().get(a).getTipoUsuario().equals("A")){
+        			try {
+        				contex.getExternalContext().redirect( "MenuAd.jsf" );
+        			} catch (IOException e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
+        		}else
+        		
+        		if(usuarioService.getUsuarios().get(a).getTipoUsuario().equals("U")){
+        			try {
+        				contex.getExternalContext().redirect( "MenuUs.jsf" );
+        			} catch (IOException e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
+        		}
+        		else{
+        			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+        					"Error Login");
+        			FacesContext.getCurrentInstance().addMessage(null, message);
+
+        		}
+        	}else{
+        		message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+    					"Nombre de Usuario y/o contraseña erroneos");
+    			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		}
+        }
+    } 
     
     public void reset() {
     	
@@ -443,81 +486,20 @@ private static final long serialVersionUID = 5678093963468460743L;
 
 
 
-	public void crearUs(ActionEvent event) {
-	        RequestContext context = RequestContext.getCurrentInstance();
-	        FacesContext contex = FacesContext.getCurrentInstance();
-	        
-	        FacesMessage message = null;
-	        boolean loggedIn = false;
-	         
-	        if(nomus != null && apeus != null && us != null && passwordus != null && mailus != null && ideus != null && especus != null &&  telus !=null) {
-	        	
+	public String getLogin() {
+		return login;
+	}
 
-	        	
-	        	String a = passwordus;
-	        	a.toCharArray();
-	        	String b = nomus;
-	        	b.toCharArray();
-	        	
-	        	int nMay = 0, nMin = 0, nNum = 0, nNum1 = 0, cont = 0;
-	        	String t1 = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-	        	String t2 = "abcdefghijklmnñopqrstuvwxyz";
-	        	String t3 = "0123456789";
-	        		for (int i=0;i<a.length();i++) {
-	        			cont++;
-	        			if ( t1.indexOf(a.charAt(i)) != -1 ){
-	        				nMay++;
-	        				}
-	        			if ( t2.indexOf(a.charAt(i)) != -1 ) {
-	        				nMin++;
-	        				}
-	        			if ( t3.indexOf(a.charAt(i)) != -1 ) {
-	        				nNum++;
-	        				}
-	        		}
-	        		if ( nMay<=0) {
-	        			 loggedIn = false;
-	     	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "La contraseña debe contener al menos una letra mayuscula", "Invalid credentials");
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
-	        		}
-	        		if ( nMin<=0) {
-	        			loggedIn = false;
-	    	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "La contraseña debe contener al menos una letra minuscula", "Invalid credentials");
-	        		}
-	        		if ( nNum<=0) {
-	        			loggedIn = false;
-	    	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "La contraseña debe contener al menos un número", "Invalid credentials");
-	        		}
-	        		if ( cont<8) {
-	        			loggedIn = false;
-	    	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "La contraseña debe contener al menos 8 carácteres", "Invalid credentials");
-	        		}
-	        		
-	        		for (int i=0;i<b.length();i++) {
-	        			if ( t3.indexOf(b.charAt(i)) != -1 ){
-	        				nNum1++;
-	        				}
-	        		}
-	        		
-	        		if ( nNum1>0) {
-	        			loggedIn = false;
-	    	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "El nombre no puede tener números ", "Invalid credentials");
-	        		}
-	        		
-	        	 if(nMay>0 && nMin>0 && nNum>0 && cont>=8 && nNum1==0){
-	        		
-	        	
-	        	
-	            loggedIn = true;
-	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "creado", nomus);
-	        	}
-	        	
-	        } else {
-	            loggedIn = false;
-	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "crear Error", "Invalid credentials");
-	        }
-	         
-	        FacesContext.getCurrentInstance().addMessage(null, message);
-	    }
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
 	
 }

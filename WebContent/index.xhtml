@@ -16,14 +16,14 @@
     <p:panel header="Inicio de Sesión" widgetVar="dlg" resizable="false">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="username" value="Usuario:" />
-            <p:inputText id="username" value="#{loginMB.username}" required="true" label="username" />
+            <p:inputText id="username" value="#{usuariosMB.login}" required="true" label="username" />
  
             <h:outputLabel for="password" value="Contraseña:" />
-            <p:password id="password" value="#{loginMB.password}" required="true" label="password" />
+            <p:password id="password" value="#{usuariosMB.contraseña}" required="true" label="password" />
  
             <f:facet name="footer">
-                <p:commandButton value="Ingresar" update="growl" actionListener="#{loginMB.ingresar}"
-                                 oncomplete="handleLoginMBRequest(xhr, status, args)" />
+                <p:commandButton value="Ingresar" update="growl" actionListener="#{usuariosMB.ingresar()}"
+                                 oncomplete="handleUsuariosMBRequest(xhr, status, args)" />
             </f:facet>  
         </h:panelGrid>
     </p:panel>
