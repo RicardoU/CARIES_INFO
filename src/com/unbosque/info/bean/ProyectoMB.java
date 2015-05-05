@@ -22,6 +22,7 @@ import org.springframework.dao.DataAccessException;
 
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.RowEditEvent;
 
 import com.unbosque.info.entidad.Proyecto;
 import com.unbosque.info.service.ProyectoService;
@@ -50,6 +51,11 @@ private static final long serialVersionUID = 464463468460743L;
 
     List<Proyecto> proyectoList;
 
+    public java.sql.Date sqlDate(java.util.Date calendarDate) {
+    	  return new java.sql.Date(calendarDate.getTime());
+    	}
+    
+    
     public void addProyecto() {
 		try {
 
@@ -81,6 +87,8 @@ private static final long serialVersionUID = 464463468460743L;
     	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El nombre del Proyecto no puede contener números");
     				FacesContext.getCurrentInstance().addMessage(null, message);
         		}else{
+        			
+        			
 
 			Proyecto proyecto = new Proyecto();
 			proyecto.setNombre(getNompro());
@@ -89,8 +97,8 @@ private static final long serialVersionUID = 464463468460743L;
 			proyecto.setNomDpto(getDepar());
 			proyecto.setTipo(getTipo());
 			proyecto.setPoblacion(getPoblacion());
-			proyecto.setFechai(getFecha1());
-			proyecto.setFechaf(getFecha2());
+			proyecto.setFechai(sqlDate(getFecha1()));
+			proyecto.setFechaf(sqlDate(getFecha2()));
 			getProyectoService().addProyecto(proyecto);
 			reset();
 			
@@ -105,19 +113,30 @@ private static final long serialVersionUID = 464463468460743L;
 		}
 
 	}
+    
+    public void updateProyecto(RowEditEvent event, int id, String nompro ){
+        Proyecto proyecto = getProyectoService().getProyectoById(id);
+        
+        proyecto.setNombre(nompro);
+        getProyectoService().updateProyecto(proyecto);
+        reset();
+        }
 
 	// Aqui colocamos el de borrado
-	//public String deleteTriangulo(Triangulo triangulo) {
-		//try {
-			//triangulo.setEstado("I");
-			//getTrianguloService().updateTriangulo(triangulo);
-		//} catch (DataAccessException e) {
-			//e.printStackTrace();
-		//}
+	public void borrarProyecto(Proyecto proyecto) {
+		try {
+			FacesMessage message = null;
+			
+			
+			getProyectoService().deleteProyecto(proyecto);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Borrado exitosamente.","");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 
-		//return null;
 
-	//}
+	}
 
 	public void reset() {
 		this.setId(0);

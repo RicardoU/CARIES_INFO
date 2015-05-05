@@ -42,7 +42,7 @@
 	<h:form>
 	<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
  
-    <p:dialog header="Crear Paciente" widgetVar="dlg" resizable="false" position="380,48" width="500" height="480">
+    <p:dialog header="Crear Paciente" widgetVar="dlg" resizable="false" position="380,48" width="500" height="580">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel value="Nombre:" />
             <p:inputText id="nompa" value="#{pacientesMB.nompa}"/>
@@ -90,73 +90,145 @@
 <h:form>
 <p:growl id="growl2" sticky="true" showDetail="true" life="2600" />
  
-    <p:dialog header="Lista de Pacientes" widgetVar="dlg2" resizable="false" position="380,48" width="1100" height="550">
+    <p:dialog header="Lista de Pacientes" widgetVar="dlg2" resizable="false" position="80,48" width="1480" height="550">
         <h:panelGrid columns="2" cellpadding="5">
-            <p:dataTable id="paciente" var="paciente"
+            <p:dataTable id="paciente" var="paciente" editable="true"
         	value="#{pacientesMB.pacientesList}" style="width: 100%" 
         	emptyMessage="No hay pacientes registrados" paginator="true"
         	rows="4" paginatorPosition="top"
         	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+        	
+        	<p:ajax event="rowEdit" update="@form" listener="#{pacientesMB.updatePaciente()}"/>
+        	
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Nombre" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Nombre" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{paciente.nombresApellidos}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Identificación" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.nombresApellidos}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Identificación" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{paciente.identificacion}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Teléfono" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.identificacion}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Teléfono" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{paciente.telefono}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Correo" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.telefono}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Correo" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{paciente.correo}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Edad" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.correo}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Edad" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{paciente.edad}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Género" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.edad}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Género" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{paciente.genero}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="ID Proyecto" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.genero}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="ID Proyecto" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{paciente.idProyecto}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Ciudad" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.idProyecto}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Ciudad" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{paciente.ciudad}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Punto Atención" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.ciudad}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Punto Atención" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{paciente.lugarAtencion}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Dentición" />
         		</f:facet>
-        		<h:outputText value="#{paciente.denticion}"/>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.lugarAtencion}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
         	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Dentición" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
+        		<h:outputText value="#{paciente.denticion}"/>
+        		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{paciente.denticion}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Editar " /></f:facet>
+           		<p:rowEditor />
+       		</p:column>
+       		
+       		<p:column>
+        		<f:facet name="header"><h:outputText value="Eliminar " /></f:facet>
+        		<p:commandButton value="Eliminar" actionListener="#{pacientesMB.borrarPaciente(paciente)}"/>
+       		</p:column>
         	</p:dataTable>
         </h:panelGrid>
     </p:dialog>

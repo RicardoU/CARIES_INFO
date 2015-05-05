@@ -43,7 +43,7 @@
 	<h:form>
 	<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
  
-    <p:dialog header="Crear Usuario" widgetVar="dlg" resizable="false" position="380,48" width="1100" height="630">
+    <p:dialog header="Crear Usuario" widgetVar="dlg" resizable="false" position="10,48" width="1500" height="650">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel value="Nombre:" />
             <p:inputText id="nomus" value="#{usuariosMB.nomus}"/>
@@ -62,62 +62,96 @@
             <h:outputLabel value="Teléfono:" />
             <p:inputText id="telus"  value="#{usuariosMB.telus}"/>
             <h:outputText value="Proyectos: "></h:outputText>
-        <p:dataTable id="proyecto" var="proyecto"
+        <p:dataTable id="proyecto" var="proyecto" editable="true"
         	value="#{proyectoMB.proyectosList}" style="width: 100%" 
         	emptyMessage="No hay proyectos registrados" paginator="true"
-        	rows="4" paginatorPosition="top"
+        	rows="3" paginatorPosition="top"
         	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+        	
+        	<p:ajax event="rowEdit" update="@form" listener="#{proyectoMB.updateProyecto}"/>
+        	
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="ID"/>
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="ID"/></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         			<h:outputText value="#{proyecto.id}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Nombre" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{proyecto.id}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        		
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Nombre" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{proyecto.nombre}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Población" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{proyecto.nombre}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        		</p:column>
+        		
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Población" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{proyecto.poblacion}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Tipo" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{proyecto.poblacion}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Tipo" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{proyecto.tipo}"/>
-        	</p:column>
-        	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Fecha Inicial" />
         		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{proyecto.tipo}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
+        	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Fecha Inicial" /></f:facet>
         		<h:outputText value="#{proyecto.fechai}"/>
+
         	</p:column>
+        	
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Fecha Final" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Fecha Final" /></f:facet>
         		<h:outputText value="#{proyecto.fechaf}"/>
+
         	</p:column>
+        	
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Locación" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Locación" /></f:facet>
         		<h:outputText value="#{proyecto.nomCiudad}, #{proyecto.nomDpto}"/>
         	</p:column>
+        	
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Seleccionar" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Seleccionar" /></f:facet>
         		<p:selectOneRadio value="#{usuariosMB.proyectosus}">  
-            <f:selectItem itemValue="#{proyecto.id}" />  
-       			 </p:selectOneRadio>
-       			 
+           		<f:selectItem itemValue="#{proyecto.id}" />  
+       			</p:selectOneRadio>    			 
         	</p:column>
+        	
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Editar " /></f:facet>
+           		<p:rowEditor />
+       		</p:column>
+       		
+       		<p:column>
+        		<f:facet name="header"><h:outputText value="Eliminar " /></f:facet>
+        		<p:commandButton value="Eliminar" actionListener="#{proyectoMB.borrarProyecto(proyecto)}"/>
+       		</p:column>
+       		
         	</p:dataTable>
  
             <f:facet name="footer">
@@ -132,49 +166,91 @@
 <h:form>
 <p:growl id="growl2" sticky="true" showDetail="true" life="2600" />
  
-    <p:dialog header="Lista de Usuarios" widgetVar="dlg2" resizable="false" position="380,48" width="900" height="300">
+    <p:dialog header="Lista de Usuarios" widgetVar="dlg2" resizable="false" position="380,48" width="1000" height="300">
         <h:panelGrid columns="2" cellpadding="5">
-        <p:dataTable id="ususario" var="usuario"
+        <p:dataTable id="ususario" var="usuario" editable="true"
         	value="#{usuariosMB.usuariosList.subList(2, usuariosMB.usuariosList.size())}" style="width: 100%" 
         	emptyMessage="No hay ususarios registrados" paginator="true"
         	rows="4" paginatorPosition="top"
         	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+        	
+        	<p:ajax event="rowEdit" update="@form" listener="#{usuariosMB.updateUsuario()}"/>
+        	
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Nombre" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Nombre" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{usuario.apellidosNombres}"/>
+        		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{usuario.apellidosNombres}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
         	</p:column>
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Nombre de Usuario" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Nombre de Usuario" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{usuario.login}"/>
+        		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{usuario.login}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
         	</p:column>
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Proyecto" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Proyecto" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{usuario.idProyecto}"/>
+        		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{usuario.idProyecto}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
         	</p:column>
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Especialidad" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Especialidad" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{usuario.especialidad}"/>
+        		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{usuario.especialidad}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
         	</p:column>
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Teléfono" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Teléfono" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{usuario.telefono}"/>
+        		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{usuario.telefono}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
         	</p:column>
         	<p:column>
-        		<f:facet name="header">
-        			<h:outputText value="Identificación" />
-        		</f:facet>
+        		<f:facet name="header"><h:outputText value="Identificación" /></f:facet>
+        		<p:cellEditor>
+        		<f:facet name="output">
         		<h:outputText value="#{usuario.identificacion}"/>
+        		</f:facet>
+        		<f:facet name="input">
+        		<p:inputText  value="#{usuario.identificacion}" style="width:100%"/>
+        		</f:facet>
+        		</p:cellEditor>
         	</p:column>
+        	<p:column>
+        		<f:facet name="header"><h:outputText value="Editar " /></f:facet>
+           		<p:rowEditor />
+       		</p:column>
+       		
+       		<p:column>
+        		<f:facet name="header"><h:outputText value="Eliminar " /></f:facet>
+        		<p:commandButton value="Eliminar" actionListener="#{usuariosMB.borrarUsuario(usuario)}"/>
+       		</p:column>
         	</p:dataTable>
         </h:panelGrid>
     </p:dialog>
@@ -186,11 +262,15 @@
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel value="Nombre del proyecto:" />
             <p:inputText id="nomproy" value="#{proyectoMB.nompro}" />
-        	 <p:outputLabel for="fechai" value="Fecha Inicial:" />
-        	<p:calendar id="fechai" value="#{proyectoMB.fecha1}" showOn="button" />
+        	 <p:outputLabel for="fechai" pattern="dd/MM/yyyy" value="Fecha Inicial:" />
+        	<p:calendar id="fechai" value="#{proyectoMB.fecha1}" showOn="button" >
+        	<f:convertDateTime type="date"  dateStyle="short" pattern="dd/MM/yyyy" />
+        	</p:calendar>
         	
         	 <p:outputLabel for="fechaf" value="Fecha Final:" />
-        	<p:calendar id="fechaf" value="#{proyectoMB.fecha2}" showOn="button"/>
+        	<p:calendar id="fechaf" pattern="dd/MM/yyyy" value="#{proyectoMB.fecha2}" showOn="button">
+        	<f:convertDateTime type="date"  dateStyle="short" pattern="dd/MM/yyyy" />
+        	</p:calendar>
         	
             <h:outputLabel for="tipoproyect" value="Tipo de Proyecto:" />
             <p:selectOneMenu id="tipoproyect"  value="#{proyectoMB.tipo}" style="width:140px">

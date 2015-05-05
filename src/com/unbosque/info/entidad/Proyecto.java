@@ -40,10 +40,10 @@ public class Proyecto implements Serializable {
 	private String poblacion;
 	
 	@Column(name = "fecha_inicial", nullable = false)
-	private java.util.Date fechai;
+	private java.sql.Date fechai;
 	
 	@Column(name = "fecha_final", nullable = false)
-	private java.util.Date fechaf;
+	private java.sql.Date fechaf;
 
 	public Proyecto() {
 		super();
@@ -105,19 +105,19 @@ public class Proyecto implements Serializable {
 		this.poblacion = poblacion;
 	}
 
-	public java.util.Date getFechai() {
+	public java.sql.Date getFechai() {
 		return fechai;
 	}
 
-	public void setFechai(java.util.Date date) {
+	public void setFechai(java.sql.Date date) {
 		this.fechai = date;
 	}
 
-	public java.util.Date getFechaf() {
+	public java.sql.Date getFechaf() {
 		return fechaf;
 	}
 
-	public void setFechaf(java.util.Date date) {
+	public void setFechaf(java.sql.Date date) {
 		this.fechaf = date;
 	}
 

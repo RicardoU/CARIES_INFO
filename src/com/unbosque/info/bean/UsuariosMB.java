@@ -16,10 +16,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import com.unbosque.info.entidad.Proyecto;
 import com.unbosque.info.entidad.Usuario;
 import com.unbosque.info.service.UsuarioService;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.RowEditEvent;
 import org.springframework.dao.DataAccessException;
  
 @ManagedBean (name = "usuariosMB")
@@ -265,6 +267,25 @@ private static final long serialVersionUID = 5678093963468460743L;
 			e.printStackTrace();
 		}
 		
+
+	}
+    
+    public void updateUsuario(RowEditEvent event){
+
+        }
+    
+    public void borrarUsuario(Usuario usuario) {
+		try {
+			FacesMessage message = null;
+			
+			
+			getUsuarioService().deleteUsuario(usuario);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario Borrado exitosamente.","");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+
 
 	}
     

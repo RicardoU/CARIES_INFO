@@ -20,11 +20,14 @@ import javax.faces.event.ActionEvent;
 
 
 
+
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.RowEditEvent;
 import org.springframework.dao.DataAccessException;
 
 import com.unbosque.info.entidad.Paciente;
 import com.unbosque.info.entidad.Proyecto;
+import com.unbosque.info.entidad.Usuario;
 import com.unbosque.info.service.PacienteService;
 import com.unbosque.info.service.ProyectoService;
  
@@ -114,10 +117,31 @@ private static final long serialVersionUID = 2563448963468460743L;
 
 	}
     
+    public void updatePaciente(RowEditEvent event){
+
+    }
+
+    public void borrarPaciente(Paciente paciente) {
+	try {
+		FacesMessage message = null;
+		
+		
+		getPacienteService().deletePaciente(paciente);
+		message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paciente Borrado exitosamente.","");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+	} catch (DataAccessException e) {
+		e.printStackTrace();
+	}
+
+
+}
+    
     public void reset() {
     	this.setNompa("");
     	this.setApepa("");
 		this.setId(0);
+		this.setIdepa(0);
+		this.setEdadpa(0);
 		this.setGeneropa("");
 		this.setCiudadpa("");
 		this.setCsaludpa("");
