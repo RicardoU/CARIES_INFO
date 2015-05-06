@@ -27,7 +27,7 @@
 <pre>_________________________________________________________________________VESTIBULAR____________________________________________________________________________________________</pre>
 
 <pre>       18       17       16       15       14       13       12       11                  21       22       23       24       25       26       27       28</pre>
-<p:commandButton id="button1" value=" " style="width:70px;height:70px"/>
+<p:commandButton id="button1" value=" " style="width:70px;height:70px" onclick="PF('dlg').show();"/>
 <p:commandButton id="button2" value=" " style="width:70px;height:70px"/>
 <p:commandButton id="button3" value=" " style="width:70px;height:70px"/>
 <p:commandButton id="button4" value=" " style="width:70px;height:70px"/>
@@ -95,7 +95,83 @@
 	
 	</p:panel>
 	</h:form>
+	<h:form>
+<p:growl id="growl2" sticky="true" showDetail="true" life="2600" />
+ 
+    <p:dialog header="Diente 18" widgetVar="dlg" resizable="false" position="380,48" width="700"  height="460">
+        <h:panelGrid columns="2" cellpadding="5">
+        <h:outputLabel  value="ID Diente:" />
+        <h:outputLabel value="18" />
+        <h:outputLabel for="valoracion" value="Valoración del Diente según la superficie:" />
+            <p:selectOneMenu id="valoracion"  value="#{odontogramaMB.idPropiedad}" style="width:240px">
+            <f:selectItem itemLabel="0 - Sin obturación" itemValue="0" />
+            <f:selectItem itemLabel="1 - Sellante parcial" itemValue="1" />
+            <f:selectItem itemLabel="2 - Sellante completo" itemValue="2" />
+            <f:selectItem itemLabel="3 - Resina" itemValue="3" />
+            <f:selectItem itemLabel="4 - Amalgama" itemValue="4" />
+            <f:selectItem itemLabel="5 - Corona de Acero" itemValue="5" />
+            <f:selectItem itemLabel="6 - Restauración perdida o defectuosa" itemValue="6" />
+            <f:selectItem itemLabel="7 - Restauración temporal" itemValue="7" />
+        </p:selectOneMenu>
+        <h:outputLabel for="valoracion2" value="Valoración del Diente según Caries:" />
+            <p:selectOneMenu id="valoracion2"  value="#{odontogramaMB.idPropiedad2}" style="width:240px">
+            <f:selectItem itemLabel="0 - Sano" itemValue="0" />
+            <f:selectItem itemLabel="1 - Primer cambio visual en esmalte" itemValue="1" />
+            <f:selectItem itemLabel="2 - Cambio visual detectable en esmalte" itemValue="2" />
+            <f:selectItem itemLabel="3 - Perdida de integridad superficial" itemValue="3" />
+            <f:selectItem itemLabel="4 - Sombra subyacente de dentina" itemValue="4" />
+            <f:selectItem itemLabel="5 - Cavidad detectable con dentina expuesta" itemValue="5" />
+            <f:selectItem itemLabel="6 - Cavidad extensa con dentina visible" itemValue="6" />
+        </p:selectOneMenu>
+         <p:commandButton value="Enviar Diente"  actionListener="#{odontogramaMB.addOdontograma(18)}"
+                                 oncomplete="handleOdontogramaMBRequest(xhr, status, args)" />
+         <h:outputLabel value=" " />
+        <h:outputLabel for="valoracion3" value="Cara del Diente a valorar:" />
+            <p:selectOneMenu id="valoracion3" value="#{dienteMB.nombre}"  style="width:240px">
+            <f:selectItem itemLabel="Mesial"  itemValue="Mesial"/>
+            <f:selectItem itemLabel="Distal"  itemValue="Distal"/>
+            <f:selectItem itemLabel="Vestibular" itemValue="Vestibular" />
+            <f:selectItem itemLabel="Palatino o Lingual"  itemValue="Palatino o Lingual"/>
+            <f:selectItem itemLabel="Oclusal o Insisal" itemValue="Oclusal o Insisal" />
+        </p:selectOneMenu>
+        <h:outputLabel for="valoracion4" value="Valoración de la cara:" />
+            <p:selectOneMenu id="valoracion4"  value="#{dienteMB.idPropiedad}" style="width:240px">
+            <f:selectItem itemLabel="0 - Sano" itemValue="0" />
+            <f:selectItem itemLabel="1 - Primer cambio visual en esmalte" itemValue="1" />
+            <f:selectItem itemLabel="2 - Cambio visual detectable en esmalte" itemValue="2" />
+            <f:selectItem itemLabel="3 - Perdida de integridad superficial" itemValue="3" />
+            <f:selectItem itemLabel="4 - Sombra subyacente de dentina" itemValue="4" />
+            <f:selectItem itemLabel="5 - Cavidad detectable con dentina expuesta" itemValue="5" />
+            <f:selectItem itemLabel="6 - Cavidad extensa con dentina visible" itemValue="6" />
+        </p:selectOneMenu>
+        <h:outputLabel value="Descripción:" />
+         <p:inputText id="nomproy" value="#{dienteMB.descripcion}" />
+         
+         <f:facet name="footer">
+                <p:commandButton value="Enviar Cara" update="growl2" actionListener="#{dienteMB.addDiente()}"
+                                 oncomplete="handleDienteMBRequest(xhr, status, args)" />
+            </f:facet> 
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
 	
+	
+	
+	
+	
+	
+	<script type="text/javascript">
+    function handleGestionUsRequest(xhr, status, args) {
+        if(args.validationFailed) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
 
  </body>	
 </html>

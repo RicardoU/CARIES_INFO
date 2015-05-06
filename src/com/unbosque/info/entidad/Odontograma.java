@@ -28,6 +28,9 @@ public class Odontograma implements Serializable {
 
 	@Column(name="id_propiedad")
 	private Integer idPropiedad;
+	
+	@Column(name="id_propiedad2")
+	private Integer idPropiedad2;
 
 	public Odontograma() {
 		super();
@@ -63,6 +66,14 @@ public class Odontograma implements Serializable {
 
 	public void setIdPropiedad(Integer idPropiedad) {
 		this.idPropiedad = idPropiedad;
+	}
+
+	public Integer getIdPropiedad2() {
+		return idPropiedad2;
+	}
+
+	public void setIdPropiedad2(Integer idPropiedad2) {
+		this.idPropiedad2 = idPropiedad2;
 	}
 
 }

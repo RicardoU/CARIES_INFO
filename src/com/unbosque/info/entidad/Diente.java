@@ -1,6 +1,7 @@
 package com.unbosque.info.entidad;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -9,15 +10,24 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Diente.findAll", query="SELECT d FROM Diente d")
+@Table(name="diente")
 public class Diente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String descripcion;
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
 	private Integer id;
 
+	@Column(name = "nombre", nullable = false)
 	private String nombre;
+	
+	@Column(name = "descripcion", nullable = false)
+	private String descripcion;
+	
+	@Column(name = "id_propiedad", nullable = false)
+	private Integer idPropiedad;
 
 	public Diente() {
 	}
@@ -44,6 +54,14 @@ public class Diente implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Integer getIdPropiedad() {
+		return idPropiedad;
+	}
+
+	public void setIdPropiedad(Integer idPropiedad) {
+		this.idPropiedad = idPropiedad;
 	}
 
 }

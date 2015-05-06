@@ -265,16 +265,9 @@
         	</p:column>
         	
         	<p:column>
-        		<f:facet name="header"><h:outputText value="Seleccionar" /></f:facet>
-        		<p:selectOneRadio value="#{odontogramaMB.idPaciente}">  
-            	<f:selectItem itemValue="#{paciente.identificacion}" />  
-       			 </p:selectOneRadio>
+        		<f:facet name="header"><h:outputText value="Odontograma" /></f:facet>
+        		<p:commandButton value="Crear" actionListener="#{odontogramaMB.asignaOdontograma(paciente.identificacion)}"/>
         	</p:column>
-       		
-       		<p:column>
-        		<f:facet name="header"><h:outputText value="Odontograma " /></f:facet>
-        		<p:commandButton value="Crear" actionListener="#{pacientesMB.crearOdon()}"/>
-       		</p:column>
         	</p:dataTable> 
         </h:panelGrid>
     </p:dialog>

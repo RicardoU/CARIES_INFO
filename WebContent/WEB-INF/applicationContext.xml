@@ -14,6 +14,8 @@
 	<bean id="Proyecto" class="com.unbosque.info.entidad.Proyecto" />
 	<bean id="Usuario" class="com.unbosque.info.entidad.Usuario" />
 	<bean id="Paciente" class="com.unbosque.info.entidad.Paciente" />
+	<bean id="Odontograma" class="com.unbosque.info.entidad.Odontograma" />
+	<bean id="Diente" class="com.unbosque.info.entidad.Diente" />
 	
 
 
@@ -34,6 +36,12 @@
 	<bean id="PacienteService" class="com.unbosque.info.service.PacienteService">
 		<property name="PacienteDAO" ref="PacienteDAO" />
 	</bean>
+	<bean id="OdontogramaService" class="com.unbosque.info.service.OdontogramaService">
+		<property name="OdontogramaDAO" ref="OdontogramaDAO" />
+	</bean>
+	<bean id="DienteService" class="com.unbosque.info.service.DienteService">
+		<property name="DienteDAO" ref="DienteDAO" />
+	</bean>
 	
 	
 	
@@ -52,6 +60,12 @@
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
 	<bean id="PacienteDAO" class="com.unbosque.info.dao.PacienteDAO">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+	<bean id="OdontogramaDAO" class="com.unbosque.info.dao.OdontogramaDAO">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+	<bean id="DienteDAO" class="com.unbosque.info.dao.DienteDAO">
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
 	
@@ -80,6 +94,8 @@
 				<value>com.unbosque.info.entidad.Proyecto</value>
 				<value>com.unbosque.info.entidad.Usuario</value>
 				<value>com.unbosque.info.entidad.Paciente</value>
+				<value>com.unbosque.info.entidad.Odontograma</value>
+				<value>com.unbosque.info.entidad.Diente</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
