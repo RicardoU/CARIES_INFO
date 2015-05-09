@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" > 
+
+<h:head>
+	<title>Proyecto Caries</title>
+</h:head>
+<body> 
+<h:form>
+<p:growl autoUpdate="true"/>
+<p:panel header="Editar Usuario" id="editar" widgetVar="dlg6" modal="true" position="400,58" width="690" height="500">
+    <h:panelGrid columns="3" cellpadding="4">
+            <h:outputLabel value="Nombres y Apellidos:" />
+            <p:inputText id="nomus" value="#{usuariosMB.nomus}"/>
+            <h:outputLabel value=" " />
+            <h:outputLabel value="Identificación:" />
+            <p:inputText id="ideus"  value="#{usuariosMB.ideus}"/>
+             <h:outputLabel value=" " />
+            <h:outputLabel value="Usuario:" />
+            <p:inputText id="us"  value="#{usuariosMB.us}"/>
+             <h:outputLabel value=" " />
+              <h:outputLabel for="tipous" value="Tipo de Usuario:" />
+            <p:selectOneMenu id="tipous"  value="#{usuariosMB.tipoUs}" style="width:140px">
+            <f:selectItem itemLabel="A" itemValue="A" />
+            <f:selectItem itemLabel="U" itemValue="U" />
+        </p:selectOneMenu>
+        <h:outputLabel value=" " />
+            <h:outputLabel value="Correo:" />
+            <p:inputText id="mailus"  value="#{usuariosMB.mailus}"/>
+             <h:outputLabel value="@gmail.com" />
+             <h:outputLabel value="Teléfono:" />
+            <p:inputText id="telus"  value="#{usuariosMB.telus}"/>
+             <h:outputLabel value=" " />
+            <h:outputLabel value="Especialidad:" />
+            <p:inputText id="especus"  value="#{usuariosMB.especus}"/>
+             <h:outputLabel value=" " />
+             <h:outputLabel for="pro" value="Proyecto:" />
+             <h:selectOneMenu id="pro" value="#{usuariosMB.proyectosus}">
+                    <f:selectItems value="#{proyectoMB.proyectosList}" var="proy"  itemLabel="#{proy.nombre}" itemValue="#{proy.id}" />
+                </h:selectOneMenu>
+        <h:outputLabel value=" " />
+            
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Editar"  actionListener="#{usuariosMB.editarUsuario(usuario)}"
+                                 oncomplete="handleUsuariosMBRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+</p:panel>  
+</h:form>
+</body> 
+</html>

@@ -21,6 +21,10 @@ import javax.faces.event.ActionEvent;
 
 
 
+
+
+
+
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.dao.DataAccessException;
@@ -46,8 +50,8 @@ private static final long serialVersionUID = 2563448963468460743L;
 	private int id;
 	private String nompa;
     private String apepa;
-    private int idepa;
-    private int edadpa;
+    private String idepa;
+    private String edadpa;
     private String generopa;
     private String ciudadpa;
     private String csaludpa;
@@ -61,41 +65,161 @@ private static final long serialVersionUID = 2563448963468460743L;
     public void addPaciente() {
 		try {
 
+			int errores= 0;
+			
 			RequestContext context = RequestContext.getCurrentInstance();
 			FacesMessage message = null;
 			
 			boolean loggedIn = false;
 
 			if(nompa.equals("")){
-				
-				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
-						"Error, El nombre del Paciente no puede estar vacío ");
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, El Nombre del Paciente no puede estar vacío ");
 				FacesContext.getCurrentInstance().addMessage(null, message);
-			}else{
+				errores++;
+			}
+			if(apepa.equals("")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, El Apellido del Paciente no puede estar vacío ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				errores++;
+			}
+			if(idepa.equals("")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, La Identificación del Paciente no puede estar vacía ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				errores++;
+			}
+			if(edadpa.equals("")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, La edad del Paciente no puede estar vacía ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				errores++;
+			}
+			if(correopa.equals("")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, El Correo del Paciente no puede estar vacío ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				errores++;
+			}
+			if(telpa.equals("")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, El Teléfono del Paciente no puede estar vacío ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				errores++;
+			}
+			if(csaludpa.equals("")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, El Centro de Atención no puede estar vacío ");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				errores++;
+			}
 			
 				String a = nompa;
 				a.toCharArray();
-				int nNum = 0;
+				String a1 = apepa;
+				a1.toCharArray();
+				String a2 = idepa;
+				a2.toCharArray();
+				String a3 = edadpa;
+				a3.toCharArray();
+				String a4 = telpa;
+				a4.toCharArray();
+				String a5 = correopa;
+				a5.toCharArray();
+				int nNum = 0, nNum1 = 0, nMay= 0, nMin=0, nMay1=0, nMin1=0, nMay2=0, nMin2=0,nEdad= 0, nValores = 0;
 				String t3 = "0123456789";
+				String t1 = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+	        	String t2 = "abcdefghijklmnñopqrstuvwxyz";
+	        	String t4 = "@.";
 				
 				for (int i=0;i<a.length();i++) {
         			if ( t3.indexOf(a.charAt(i)) != -1 ){
         				nNum++;
         				}
         		}
+				for (int i=0;i<a1.length();i++) {
+        			if ( t3.indexOf(a1.charAt(i)) != -1 ){
+        				nNum1++;
+        				}
+        		}
+				for (int i=0;i<a2.length();i++) {
+        			if ( t1.indexOf(a2.charAt(i)) != -1 ){
+        				nMay++;
+        				}
+        			if ( t2.indexOf(a2.charAt(i)) != -1 ){
+        				nMin++;
+        				}
+        		}
+				for (int i=0;i<a3.length();i++) {
+					nEdad++;
+        			if ( t1.indexOf(a3.charAt(i)) != -1 ){
+        				nMay1++;
+        				}
+        			if ( t2.indexOf(a3.charAt(i)) != -1 ){
+        				nMin1++;
+        				}
+        		}
+				for (int i=0;i<a4.length();i++) {
+        			if ( t1.indexOf(a4.charAt(i)) != -1 ){
+        				nMay2++;
+        				}
+        			if ( t2.indexOf(a4.charAt(i)) != -1 ){
+        				nMin2++;
+        				}
+        		}
+				for (int i=0;i<a5.length();i++) {
+        			if ( t4.indexOf(a5.charAt(i)) != -1 ){
+        				nValores++;
+        				}
+        		}
+				
 				
 				if ( nNum!=0) {
 					loggedIn = false;
     	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El nombre del Paciente no puede contener números");
     				FacesContext.getCurrentInstance().addMessage(null, message);
-        		}else{
+    				errores++;
+        		}
+				if ( nNum1!=0) {
+					loggedIn = false;
+    	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El apellido del Paciente no puede contener números");
+    				FacesContext.getCurrentInstance().addMessage(null, message);
+    				errores++;
+        		}
+				if ( nMay!=0 || nMin!=0) {
+        			loggedIn = false;
+            	    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","La identificación del Paciente no puede contener letras");
+            		FacesContext.getCurrentInstance().addMessage(null, message);
+            		errores++;
+                }
+				if ( nEdad>2) {
+        			loggedIn = false;
+            	    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","La Edad del Paciente no puede ser mayor de 2 digitos");
+            		FacesContext.getCurrentInstance().addMessage(null, message);
+            		errores++;
+                }
+				if ( nMay1!=0 || nMin1!=0) {
+        			loggedIn = false;
+            	    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","La Edad del Paciente no puede contener letras");
+            		FacesContext.getCurrentInstance().addMessage(null, message);
+            		errores++;
+                }
+				if ( nMay2!=0 || nMin2!=0) {
+        			loggedIn = false;
+            	    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El Teléfono del Paciente no puede contener letras");
+            		FacesContext.getCurrentInstance().addMessage(null, message);
+            		errores++;
+                }
+				if ( nValores!=0) {
+					loggedIn = false;
+    	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El correo ingresado no es válido");
+    				FacesContext.getCurrentInstance().addMessage(null, message);
+    				errores++;
+        		}
+				
+				
+				if(errores==0){
 
         	Paciente paciente = new Paciente();
         	paciente.setNombresApellidos(getNompa() + " " + getApepa());
         	paciente.setEdad(getEdadpa());
         	paciente.setEstado("A");
         	paciente.setCiudad(getCiudadpa());
-        	paciente.setCorreo(getCorreopa());
+        	paciente.setCorreo(getCorreopa()+"@gmail.com");
         	paciente.setDenticion(getDenticionpa());
         	paciente.setGenero(getGeneropa());
         	paciente.setIdentificacion(getIdepa());
@@ -109,39 +233,124 @@ private static final long serialVersionUID = 2563448963468460743L;
 					"Registro agregado exitosamente.");
 			FacesContext.getCurrentInstance().addMessage(null, message);	
 
-        		}
+				
 			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
 
 	}
+
+    public void ventanaPaciente(Paciente paciente){
+    	
+    	FacesContext contex = FacesContext.getCurrentInstance();
+    	
+        
+    	try {
+			FacesMessage message = null;
+			if(paciente.getEstado().equals("I")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, el paciente esta bloqueado, no se puede editar","");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+				try {
+					contex.getExternalContext().redirect("EditarPa.jsf");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				String [] nom = paciente.getNombresApellidos().split(" ");
+				
+				this.setNompa(nom[0]);
+				this.setApepa(nom[1]);
+				this.setIdepa(paciente.getIdentificacion());
+				this.setEdadpa(paciente.getEdad());
+				this.setGeneropa(paciente.getGenero());	
+				String [] h = paciente.getCorreo().split("@");			
+				this.setCorreopa(h[1]);
+				this.setTelpa(paciente.getTelefono());
+				this.setCiudadpa(paciente.getCiudad());
+				this.setCsaludpa(paciente.getLugarAtencion());
+				this.setDenticionpa(paciente.getDenticion());
+				this.setProyectospa(paciente.getIdProyecto());
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+    	
+
+        }
     
-    public void updatePaciente(RowEditEvent event){
+    	public void editarPaciente(Paciente paciente){
+    	
+    	FacesContext contex = FacesContext.getCurrentInstance();
+    	
+        
+    	
+			FacesMessage message = null;
 
-    }
+			paciente.setNombresApellidos(getNompa() + " " + getApepa());
+        	paciente.setEdad(getEdadpa());
+        	paciente.setCiudad(getCiudadpa());
+        	paciente.setCorreo(getCorreopa()+"@gmail.com");
+        	paciente.setDenticion(getDenticionpa());
+        	paciente.setGenero(getGeneropa());
+        	paciente.setIdentificacion(getIdepa());
+        	paciente.setIdProyecto(getProyectospa());
+        	paciente.setLugarAtencion(getCsaludpa());
+        	paciente.setTelefono(getTelpa());
+			getPacienteService().updatePaciente(paciente);
+			reset();
+			
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+					"Registro editado exitosamente.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
 
-    public void borrarPaciente(Paciente paciente) {
-	try {
-		FacesMessage message = null;
+
+    	
+    	}
+
+    public void bloquearPaciente(Paciente paciente) {
+		try {
+			FacesMessage message = null;
+			if(paciente.getEstado().equals("I")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, el paciente ya se encuentra bloqueado.","");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+				paciente.setEstado("I");
+			getPacienteService().updatePaciente(paciente);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paciente Bloqueado exitosamente.","");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 		
-		
-		getPacienteService().deletePaciente(paciente);
-		message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paciente Borrado exitosamente.","");
-		FacesContext.getCurrentInstance().addMessage(null, message);
-	} catch (DataAccessException e) {
-		e.printStackTrace();
+
 	}
+    public void desbloquearPaciente(Paciente paciente) {
+		try {
+			FacesMessage message = null;
+			if(paciente.getEstado().equals("A")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, el paciente ya se encuentra Activo.","");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+				paciente.setEstado("A");
+			getPacienteService().updatePaciente(paciente);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paciente Desbloqueado exitosamente.","");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		
 
-
-}
+	}
     
     public void reset() {
     	this.setNompa("");
     	this.setApepa("");
 		this.setId(0);
-		this.setIdepa(0);
-		this.setEdadpa(0);
 		this.setGeneropa("");
 		this.setCiudadpa("");
 		this.setCsaludpa("");
@@ -196,11 +405,11 @@ private static final long serialVersionUID = 2563448963468460743L;
 		this.apepa = apepa;
 	}
 
-	public int getEdadpa() {
+	public String getEdadpa() {
 		return edadpa;
 	}
 
-	public void setEdadpa(int edadpa) {
+	public void setEdadpa(String edadpa) {
 		this.edadpa = edadpa;
 	}
 
@@ -236,11 +445,11 @@ private static final long serialVersionUID = 2563448963468460743L;
 		this.denticionpa = denticionpa;
 	}
 
-	public int getIdepa() {
+	public String getIdepa() {
 		return idepa;
 	}
 
-	public void setIdepa(int idepa) {
+	public void setIdepa(String idepa) {
 		this.idepa = idepa;
 	}
 
@@ -276,72 +485,5 @@ private static final long serialVersionUID = 2563448963468460743L;
 		this.registroSeleccionado = registroSeleccionado;
 	}
 
-	public void crearPa(ActionEvent event) {
-	        RequestContext context = RequestContext.getCurrentInstance();
-	        FacesContext contex = FacesContext.getCurrentInstance();
-	        
-	        FacesMessage message = null;
-	        boolean loggedIn = false;
-	         
-	        if(nompa != null && apepa != null && edadpa ==0 && generopa != null && ciudadpa != null && csaludpa != null && denticionpa != null
-	        		&& idepa == 0 && proyectospa == 0) {
-	        	
-
-	            loggedIn = true;
-	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "creado", nompa);
-	        	}
-	        	
-	         else {
-	            loggedIn = false;
-	            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "crear Error", "Invalid credentials");
-	        }
-	         
-	        FacesContext.getCurrentInstance().addMessage(null, message);
-	        //context.addCallbackParam("loggedIn", loggedIn);
-	    }
-	
-	public void crearOdon() {
-		
-        RequestContext context = RequestContext.getCurrentInstance();
-        FacesContext contex = FacesContext.getCurrentInstance();
-        FacesMessage message = null;
-        boolean loggedOff = false;
-        
-        loggedOff = false;
-             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sesión cerrada", "Invalid credentials");
-        
-            try {
-				contex.getExternalContext().redirect("Odontograma.jsf");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-         
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        context.addCallbackParam("loggedOff", loggedOff);
-    }  
-	
-	public void consultar(ActionEvent event) {
-        RequestContext context = RequestContext.getCurrentInstance();
-        FacesContext contex = FacesContext.getCurrentInstance();
-        
-        FacesMessage message = null;
-        boolean loggedIn = false;
-         
-        if(idepa == 0 ) {
-        	
-
-            loggedIn = true;
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "consulta", "");
-        	}
-        	
-         else {
-            loggedIn = false;
-            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error consulta", "Invalid credentials");
-        }
-         
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        //context.addCallbackParam("loggedIn", loggedIn);
-    }
 	
 }

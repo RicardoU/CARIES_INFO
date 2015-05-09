@@ -25,7 +25,9 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import com.unbosque.info.entidad.Proyecto;
+import com.unbosque.info.entidad.Usuario;
 import com.unbosque.info.service.ProyectoService;
+import com.unbosque.info.util.Mailer;
  
 @ManagedBean (name = "proyectoMB")
 @SessionScoped
@@ -47,6 +49,7 @@ private static final long serialVersionUID = 464463468460743L;
     private java.util.Date fecha2;
     private String tipo;
     private String poblacion;
+    private String locacion;
 	
 
     List<Proyecto> proyectoList;
@@ -59,6 +62,8 @@ private static final long serialVersionUID = 464463468460743L;
     public void addProyecto() {
 		try {
 
+			int errores = 0;
+			
 			RequestContext context = RequestContext.getCurrentInstance();
 			FacesMessage message = null;
 			
@@ -66,10 +71,10 @@ private static final long serialVersionUID = 464463468460743L;
 
 			if(nompro.equals("")){
 				
-				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
-						"Error, El nombre del Proyecto no puede estar vacío ");
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, El nombre del Proyecto no puede estar vacío ");
 				FacesContext.getCurrentInstance().addMessage(null, message);
-			}else{
+				errores++;
+			}
 			
 				String a = nompro;
 				a.toCharArray();
@@ -86,10 +91,16 @@ private static final long serialVersionUID = 464463468460743L;
 					loggedIn = false;
     	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El nombre del Proyecto no puede contener números");
     				FacesContext.getCurrentInstance().addMessage(null, message);
-        		}else{
+    				errores++;
+        		}
         			
-        			
+        			if(errores==0){
 
+        		String[] locaciones =	getLocacion().split("-");
+        		
+        		this.setCiudad(locaciones[0] );
+        		this.setDepar(locaciones[1]);
+        			
 			Proyecto proyecto = new Proyecto();
 			proyecto.setNombre(getNompro());
 			proyecto.setEstado("A");
@@ -106,37 +117,76 @@ private static final long serialVersionUID = 464463468460743L;
 					"Registro agregado exitosamente.");
 			FacesContext.getCurrentInstance().addMessage(null, message);	
 
-        		}
+        			}
+			
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+    public void ventanaProyecto(Proyecto proyecto){
+    	
+    	FacesContext contex = FacesContext.getCurrentInstance();
+    	
+        
+    	try {
+			FacesMessage message = null;
+			if(proyecto.getEstado().equals("I")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, el proyecto esta bloqueado, no se puede editar","");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+				try {
+					contex.getExternalContext().redirect("EditarPro.jsf");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				this.setNompro(proyecto.getNombre());
+				this.setTipo(proyecto.getTipo());
+				this.setPoblacion(proyecto.getPoblacion());
+				this.setLocacion(proyecto.getNomCiudad()+"-"+proyecto.getNomDpto());
 			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
+    	
 
-	}
-    
-    public void updateProyecto(RowEditEvent event, int id, String nompro ){
-        Proyecto proyecto = getProyectoService().getProyectoById(id);
-        
-        proyecto.setNombre(nompro);
-        getProyectoService().updateProyecto(proyecto);
-        reset();
         }
+    
+    	public void editarProyecto(Proyecto proyecto){
+    	
+    	FacesContext contex = FacesContext.getCurrentInstance();
+    	
+        
+    	
+			FacesMessage message = null;
+
+
+    		String[] locaciones =	getLocacion().split("-");
+    		
+    		this.setCiudad(locaciones[0] );
+    		this.setDepar(locaciones[1]);
+    		
+		proyecto.setNombre(getNompro());
+		proyecto.setNomCiudad(getCiudad());
+		proyecto.setNomDpto(getDepar());
+		proyecto.setTipo(getTipo());
+		proyecto.setPoblacion(getPoblacion());
+		getProyectoService().updateProyecto(proyecto);
+		reset();
+		
+		message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+				"Registro editado exitosamente.");
+		FacesContext.getCurrentInstance().addMessage(null, message);	
+
+
+    	
+    	}
 
 	// Aqui colocamos el de borrado
-	public void borrarProyecto(Proyecto proyecto) {
-		try {
-			FacesMessage message = null;
-			
-			
-			getProyectoService().deleteProyecto(proyecto);
-			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto Borrado exitosamente.","");
-			FacesContext.getCurrentInstance().addMessage(null, message);
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}
 
-
-	}
 
 	public void reset() {
 		this.setId(0);
@@ -147,6 +197,43 @@ private static final long serialVersionUID = 464463468460743L;
 		this.setFecha2(null);
 		this.setTipo("");
 		this.setPoblacion("");
+	}
+	
+	public void bloquearProyecto(Proyecto proyecto) {
+		try {
+			FacesMessage message = null;
+			if(proyecto.getEstado().equals("I")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, el proyecto ya se encuentra inactivo.","");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+				proyecto.setEstado("I");
+			getProyectoService().updateProyecto(proyecto);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto inactivado exitosamente.","");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		
+
+	}
+    public void desbloquearProyecto(Proyecto proyecto) {
+		try {
+			FacesMessage message = null;
+			if(proyecto.getEstado().equals("A")){
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error, el proyecto ya se encuentra Activo.","");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+				proyecto.setEstado("A");
+			getProyectoService().updateProyecto(proyecto);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Proyecto activado exitosamente.","");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		
+
 	}
 
 	public List<Proyecto> getProyectosList() {
@@ -252,6 +339,16 @@ private static final long serialVersionUID = 464463468460743L;
 
 	public void setPoblacion(String poblacion) {
 		this.poblacion = poblacion;
+	}
+
+
+	public String getLocacion() {
+		return locacion;
+	}
+
+
+	public void setLocacion(String locacion) {
+		this.locacion = locacion;
 	}
 	
 }

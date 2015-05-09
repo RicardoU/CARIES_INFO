@@ -58,6 +58,9 @@ public class Usuario implements Serializable {
 	
 	@Column(name="telefono")
 	private String telefono;
+	
+	@Column(name="intentos")
+	private Integer intentos;
 
 	public Usuario() {
 	}
@@ -164,6 +167,14 @@ public class Usuario implements Serializable {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public Integer getIntentos() {
+		return intentos;
+	}
+
+	public void setIntentos(Integer intentos) {
+		this.intentos = intentos;
 	}
 
 }

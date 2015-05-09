@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" > 
+
+<h:head>
+	<title>Proyecto Caries</title>
+</h:head>
+<body> 
+<h:form>
+<p:growl autoUpdate="true"/>
+<p:panel header="Editar Proyecto" id="editar" widgetVar="dlg6" modal="true" position="400,58" width="690" height="500">
+    <h:panelGrid columns="2" cellpadding="4">
+            <h:outputLabel value="Nombre del proyecto:" />
+            <p:inputText id="nomproy" value="#{proyectoMB.nompro}" />
+        	
+            <h:outputLabel for="tipoproyect" value="Tipo de Proyecto:" />
+            <p:selectOneMenu id="tipoproyect"  value="#{proyectoMB.tipo}" style="width:140px">
+            <f:selectItem itemLabel="Social" itemValue="Social" />
+            <f:selectItem itemLabel="Investigativo" itemValue="Investigativo" />
+            <f:selectItem itemLabel="Productivo" itemValue="Productivo" />
+            <f:selectItem itemLabel="Comunitario" itemValue="Comunitario" />
+        </p:selectOneMenu>
+            <h:outputLabel for="poblacion" value="Población:" />
+            <p:selectOneMenu id="poblacion" value="#{proyectoMB.poblacion}" style="width:140px">
+            <f:selectItem itemLabel="Niños" itemValue="Niños"/>
+            <f:selectItem itemLabel="Adultos" itemValue="Adultos"/>
+        </p:selectOneMenu>
+        	 <h:outputLabel for="loc" value="Locaciones:" />
+             <h:selectOneMenu id="loc" value="#{proyectoMB.locacion}">
+                    <f:selectItems value="#{ciudadMB.ciudadesList}" var="ciud"  itemLabel="#{ciud.nombre}-#{ciud.nombreDepto}" itemValue="#{ciud.nombre}-#{ciud.nombreDepto}" />
+                </h:selectOneMenu>
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Editar"  actionListener="#{proyectoMB.editarProyecto(proyecto)}"
+                                 oncomplete="handleProyectoMBRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+</p:panel>  
+</h:form>
+</body> 
+</html>

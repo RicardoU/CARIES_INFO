@@ -36,6 +36,8 @@ public class CiudadMB implements Serializable {
 
 	public void addCiudad() {
 		try {
+			
+			int errores = 0;
 
 			RequestContext context = RequestContext.getCurrentInstance();
 			FacesMessage message = null;
@@ -43,10 +45,10 @@ public class CiudadMB implements Serializable {
 
 			if(ciudad.equals("")){
 				
-				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
-						"Error, El nombre de la Ciudad no puede estar vacío ");
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, El nombre de la Ciudad no puede estar vacío ");
 				FacesContext.getCurrentInstance().addMessage(null, message);
-			}else{
+				errores++;
+			}
 			
 				
 				String a = ciudad;
@@ -64,7 +66,17 @@ public class CiudadMB implements Serializable {
 					loggedIn = false;
     	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","El nombre de la ciudad no puede contener números");
     				FacesContext.getCurrentInstance().addMessage(null, message);
-        		}else{
+    				errores++;
+        		}
+				
+				if(depto.equals("s")){
+					loggedIn = false;
+    	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Seleccione una opciòn valida para el departamento");
+    				FacesContext.getCurrentInstance().addMessage(null, message);
+    				errores++;
+				}
+				
+				if(errores==0){
 				
 			Ciudad ciudad = new Ciudad();
 			
@@ -77,8 +89,8 @@ public class CiudadMB implements Serializable {
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
 					"Registro agregado exitosamente.");
 			FacesContext.getCurrentInstance().addMessage(null, message);	
-        		}
-			}
+        		
+				}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}

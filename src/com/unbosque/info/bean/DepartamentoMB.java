@@ -43,8 +43,7 @@ public class DepartamentoMB implements Serializable {
 			
 			if(departamento.equals("")){
 				
-				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
-						"Error, El nombre del departamento no puede estar vacío ");
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "","Error, El nombre del departamento no puede estar vacío ");
 				FacesContext.getCurrentInstance().addMessage(null, message);
 			}else{
 				

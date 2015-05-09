@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" > 
+
+<h:head>
+	<title>Proyecto Caries</title>
+</h:head>
+<body> 
+<h:form>
+<p:growl autoUpdate="true"/>
+<p:panel header="Editar Pacientes" id="editar" widgetVar="dlg6" modal="true" position="400,58" width="690" height="500">
+    <h:panelGrid columns="3" cellpadding="4">
+           <h:outputLabel value="Nombre:" />
+            <p:inputText id="nompa" value="#{pacientesMB.nompa}"/>
+            <h:outputLabel value="" />
+ 			<h:outputLabel value="Apellido:" />
+            <p:inputText id="apepa" value="#{pacientesMB.apepa}"/>
+            <h:outputLabel value="" />
+            <h:outputLabel value="Identificación:" />
+            <p:inputText id="idepa" value="#{pacientesMB.idepa}"/>
+            <h:outputLabel value="" />
+            <h:outputLabel value="Edad:" />
+            <p:inputText id="edadus"  value="#{pacientesMB.edadpa}"/>
+            <h:outputLabel value="" />
+            <h:outputLabel for="generous" value="Género:" />
+            <p:selectOneMenu id="generous" value="#{pacientesMB.generopa}" style="width:140px">
+            <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+            <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+            </p:selectOneMenu>
+            <h:outputLabel value="" />
+            <h:outputLabel value="Correo:" />
+            <p:inputText id="correous" value="#{pacientesMB.correopa}" />
+            <h:outputLabel value="@gmail.com" />
+            <h:outputLabel value="Teléfono:" />
+            <p:inputText id="telus" value="#{pacientesMB.telpa}" />
+             <h:outputLabel value="" />
+             <h:outputLabel for="ciudadus" value="Ciudad:" />
+             <h:selectOneMenu id="ciudadus" value="#{pacientesMB.ciudadpa}">
+                    <f:selectItems value="#{ciudadMB.ciudadesList}" var="ciud"  itemLabel="#{ciud.nombre}" itemValue="#{ciud.nombre}" />
+                </h:selectOneMenu>
+             <h:outputLabel value="" />
+            <h:outputLabel value="Centro de Salud donde fue atendido:" />
+            <p:inputText id="csaludus"  value="#{pacientesMB.csaludpa}"/>
+             <h:outputLabel value="" />
+            <p:outputLabel for="denticionus" value="Tipo de Dentición:" />
+        <p:selectOneMenu id="denticionus"  value="#{pacientesMB.denticionpa}" style="width:140px">
+            <f:selectItem itemLabel="Primaria" itemValue="Primaria" />
+            <f:selectItem itemLabel="Mixta" itemValue="Mixta" />
+            <f:selectItem itemLabel="Permanente" itemValue="Permanente" />
+        </p:selectOneMenu>
+         <h:outputLabel value="" />
+        <h:outputLabel for="pro" value="Proyecto:" />
+             <h:selectOneMenu id="pro" value="#{pacientesMB.proyectospa}">
+                    <f:selectItems value="#{proyectoMB.proyectosList}" var="proy"  itemLabel="#{proy.nombre}" itemValue="#{proy.id}" />
+                </h:selectOneMenu>
+         <h:outputLabel value="" />
+            
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Editar"  actionListener="#{pacientesMB.editarPaciente(paciente)}"
+                                 oncomplete="handlePacientesMBRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+</p:panel>  
+</h:form>
+</body> 
+</html>

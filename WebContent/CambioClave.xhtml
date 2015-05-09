@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" > 
+
+<h:head>
+	<title>Proyecto Caries</title>
+</h:head>
+<body> 
+<h:form>
+<p:growl autoUpdate="true"/>
+<p:panel header="Cambio de Contraseña" id="editar" widgetVar="dlg6" modal="true" position="400,58" width="690" height="500">
+    <h:panelGrid columns="2" cellpadding="4">
+    		<h:outputText value="Estimado Usuario." />
+    		<h:outputText value="" />
+    		<h:outputText value="Por motivos de seguridad le recomendamos que cambie su contraseña." />
+    		<h:outputText value="" />
+    		<h:outputText value="Muchas gracias!" />
+    		<h:outputText value="" />
+    		<h:outputText value="" />
+    		<h:outputText value="" />
+            <h:outputText value="Nombres y Apellidos:" />
+            <p:outputLabel id="nomus" value="#{usuariosMB.nomus}"/>
+            <h:outputText value="Contraseña Antigua:" />
+            <p:inputText id="cona"  value="#{usuariosMB.passwordus}"/>
+            <h:outputText value="Nueva Contraseña:" />
+             <p:inputText id="conn"  value="#{usuariosMB.passwordus}"/>    
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Cambiar"  actionListener="#{usuariosMB.editarUsuario(usuario)}"
+                                 oncomplete="handleUsuariosMBRequest(xhr, status, args)" />
+                <p:commandButton value="Ir al Menú"  actionListener="#{usuariosMB.irMenu()}"
+                                 oncomplete="handleUsuariosMBRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+</p:panel>  
+</h:form>
+</body> 
+</html>

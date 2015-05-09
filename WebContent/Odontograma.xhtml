@@ -17,81 +17,84 @@
 
  	<p:panel header="Odontograma" widgetVar="dlg" resizable="false">
     
-    <h:outputLabel value="Paciente:" />
+    <h:outputLabel value="Id Paciente: " />
     <h:outputLabel id="nompa" value="#{odontogramaMB.idPaciente}"/>
     
 	
 	
 	
 <h1>ODONTOGRAMA</h1>
-<pre>_________________________________________________________________________VESTIBULAR____________________________________________________________________________________________</pre>
+<p:accordionPanel multiple="true">
+<p:tab title="___________________________________________________VESTIBULAR___________________________________________________">
+<p:commandButton id="button1" value="18" style="width:70px;height:70px" onclick="PF('dlg').show();"/>
+<p:commandButton id="button2" value="17" style="width:70px;height:70px"/>
+<p:commandButton id="button3" value="16" style="width:70px;height:70px"/>
+<p:commandButton id="button4" value="15" style="width:70px;height:70px"/>
+<p:commandButton id="button5" value="14" style="width:70px;height:70px"/>
+<p:commandButton id="button6" value="13" style="width:70px;height:70px"/>
+<p:commandButton id="button7" value="12" style="width:70px;height:70px"/>
+<p:commandButton id="button8" value="11" style="width:70px;height:70px"/>
+<h:outputLabel value="_______" />
+<p:commandButton id="button9" value="21" style="width:70px;height:70px"/>
+<p:commandButton id="button10" value="22" style="width:70px;height:70px"/>
+<p:commandButton id="button11" value="23" style="width:70px;height:70px"/>
+<p:commandButton id="button12" value="24" style="width:70px;height:70px"/>
+<p:commandButton id="button13" value="25" style="width:70px;height:70px"/>
+<p:commandButton id="button14" value="26" style="width:70px;height:70px"/>
+<p:commandButton id="button15" value="27" style="width:70px;height:70px"/>
+<p:commandButton id="button16" value="28" style="width:70px;height:70px"/>
+</p:tab>
+<p:tab title="____________________________________________________LINGUAL_____________________________________________________">
+<h:outputLabel value="___________________" />
+<p:commandButton id="button17" value="55" style="width:70px;height:70px"/>
+<p:commandButton id="button18" value="54" style="width:70px;height:70px"/>
+<p:commandButton id="button19" value="53" style="width:70px;height:70px"/>
+<p:commandButton id="button20" value="52" style="width:70px;height:70px"/>
+<p:commandButton id="button21" value="51" style="width:70px;height:70px"/>
+<h:outputLabel value="_______" />
+<p:commandButton id="button22" value="61" style="width:70px;height:70px"/>
+<p:commandButton id="button23" value="62" style="width:70px;height:70px"/>
+<p:commandButton id="button24" value="63" style="width:70px;height:70px"/>
+<p:commandButton id="button25" value="64" style="width:70px;height:70px"/>
+<p:commandButton id="button26" value="65" style="width:70px;height:70px"/>
+<h:outputLabel value="____________________" />
+</p:tab>
+<p:tab title="____________________________________________________LINGUAL_____________________________________________________">
+<h:outputLabel value="___________________" />
+<p:commandButton id="button27" value="85" style="width:70px;height:70px"/>
+<p:commandButton id="button28" value="84" style="width:70px;height:70px"/>
+<p:commandButton id="button29" value="83" style="width:70px;height:70px"/>
+<p:commandButton id="button30" value="82" style="width:70px;height:70px"/>
+<p:commandButton id="button31" value="81" style="width:70px;height:70px"/>
+<h:outputLabel value="_______" />
+<p:commandButton id="button32" value="71" style="width:70px;height:70px"/>
+<p:commandButton id="button33" value="72" style="width:70px;height:70px"/>
+<p:commandButton id="button34" value="73" style="width:70px;height:70px"/>
+<p:commandButton id="button35" value="74" style="width:70px;height:70px"/>
+<p:commandButton id="button36" value="75" style="width:70px;height:70px"/>
+<h:outputLabel value="____________________" />
+</p:tab>
+<p:tab title="___________________________________________________VESTIBULAR___________________________________________________">
+<p:commandButton id="button37" value="48" style="width:70px;height:70px"/>
+<p:commandButton id="button38" value="47" style="width:70px;height:70px"/>
+<p:commandButton id="button39" value="46" style="width:70px;height:70px"/>
+<p:commandButton id="button40" value="45" style="width:70px;height:70px"/>
+<p:commandButton id="button41" value="44" style="width:70px;height:70px"/>
+<p:commandButton id="button42" value="43" style="width:70px;height:70px"/>
+<p:commandButton id="button43" value="42" style="width:70px;height:70px"/>
+<p:commandButton id="button44" value="41" style="width:70px;height:70px"/>
+<h:outputLabel value="_______" />
+<p:commandButton id="button45" value="31" style="width:70px;height:70px"/>
+<p:commandButton id="button46" value="32" style="width:70px;height:70px"/>
+<p:commandButton id="button47" value="33" style="width:70px;height:70px"/>
+<p:commandButton id="button48" value="34" style="width:70px;height:70px"/>
+<p:commandButton id="button49" value="35" style="width:70px;height:70px"/>
+<p:commandButton id="button50" value="36" style="width:70px;height:70px"/>
+<p:commandButton id="button51" value="37" style="width:70px;height:70px"/>
+<p:commandButton id="button52" value="38" style="width:70px;height:70px"/>
+</p:tab>
+</p:accordionPanel>
 
-<pre>       18       17       16       15       14       13       12       11                  21       22       23       24       25       26       27       28</pre>
-<p:commandButton id="button1" value=" " style="width:70px;height:70px" onclick="PF('dlg').show();"/>
-<p:commandButton id="button2" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button3" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button4" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button5" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button6" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button7" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button8" value=" " style="width:70px;height:70px"/>
-<h:outputLabel value="_______" />
-<p:commandButton id="button9" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button10" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button11" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button12" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button13" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button14" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button15" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button16" value=" " style="width:70px;height:70px"/>
-<pre>		   	          55       54       53       52       51                  61       62       63       64       65	   	       	   </pre>
-<h:outputLabel value="___________________" />
-<p:commandButton id="button17" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button18" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button19" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button20" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button21" value=" " style="width:70px;height:70px"/>
-<h:outputLabel value="_______" />
-<p:commandButton id="button22" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button23" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button24" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button25" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button26" value=" " style="width:70px;height:70px"/>
-<h:outputLabel value="________________________________" />
-<pre>__________________________________________________________________________LINGUAL______________________________________________________________________________________________</pre>
-<pre>		   	          85       84       83       82       81                  71       72       73       74       75	   	       	   </pre>
-<h:outputLabel value="___________________" />
-<p:commandButton id="button27" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button28" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button29" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button30" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button31" value=" " style="width:70px;height:70px"/>
-<h:outputLabel value="_______" />
-<p:commandButton id="button32" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button33" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button34" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button35" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button36" value=" " style="width:70px;height:70px"/>
-<h:outputLabel value="________________________________" />
-<pre>       48       47       46       45       44       43       42       41                  31       32       33       34       35       36       37       38</pre>
-<p:commandButton id="button37" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button38" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button39" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button40" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button41" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button42" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button43" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button44" value=" " style="width:70px;height:70px"/>
-<h:outputLabel value="_______" />
-<p:commandButton id="button45" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button46" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button47" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button48" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button49" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button50" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button51" value=" " style="width:70px;height:70px"/>
-<p:commandButton id="button52" value=" " style="width:70px;height:70px"/>
-<pre>_________________________________________________________________________VESTIBULAR____________________________________________________________________________________________</pre>
 	
 	</p:panel>
 	</h:form>
